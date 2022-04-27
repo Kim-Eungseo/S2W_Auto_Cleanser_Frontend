@@ -1,24 +1,18 @@
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class DataProjectRepository {
-  final RemoteDataSource _remoteDataSource = RemoteDataSource();
-
-  /// 게시물 목록을 가져옴
-  Future<List<DataProjectDto>> getDataProjects() {
-    return _remoteDataSource.getDataProjects()();
-  }
+  late final RemoteDataSource remoteDataSource;
 }
 
 class RemoteDataSource {
-  Future<List<DataProjectDto>> getDataProjects() async {
-    const String uri = "http://localhost:8000/";
+  Future<List<DataProjectDto>> getDataProjectByName(String name) async {
+    const path = '/v1/project';
+    const params = <String, String>{"name": name};
+    const uri = Uri.https("localhost:8000", path, params);
     final res = await http.get(uri);
     if (res.statusCode == HttpStatus.ok) {
       final data = _bytesToJson(res.bodyBytes) as List;
-      return data.map((el) => DataProjectDto.fromMap(el as Map)).toList();
+      return data.map((el) => Post.fromMap(el as Map)).toList();
     } else {
       throw Exception("Error on server");
     }
