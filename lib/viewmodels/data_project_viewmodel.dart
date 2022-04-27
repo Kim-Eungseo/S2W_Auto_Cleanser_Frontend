@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 
+part 'data_project_viewmodel.g.dart';
+
 class DataProjectViewModel with ChangeNotifier {
   List<DataProjectDto> get dataList => _dataList;
   List<DataProjectDto> _dataList = [];
@@ -12,25 +14,24 @@ class DataProjectViewModel with ChangeNotifier {
 
 @JsonSerializable()
 class DataProjectDto {
-  int? id;
-  String name;
-  String author;
-  String fileText;
-  String timestamp;
-  Map? head;
+  final int? id;
+  final String? name;
+  final String? author;
+  final String? fileText;
+  final String? timestamp;
+  final Map? head;
 
-  DataProjectDto(
+  DataProjectDto({
     this.id,
     this.name,
     this.author,
     this.fileText,
     this.timestamp,
     this.head
-  );
+  });
 
-  factory DataProjectDto.fromJson(Map<String, dynamic> json)
-  => _$DataProjectDtoFromJson(this)
+  factory DataProjectDto.fromJson(Map<String, dynamic> json) =>
+      _$DataProjectDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$DataProjectDtoToJson(this);
-
 }

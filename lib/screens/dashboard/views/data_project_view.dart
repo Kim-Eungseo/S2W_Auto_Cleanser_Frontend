@@ -23,7 +23,7 @@ class DataProjectView extends StatelessWidget {
     return ListView.builder(
       itemBuilder: (context, index) {
         final item = items[index];
-        return ListTile(title: Text(item.name));
+        return ListTile(title: Text(item.name ?? "null"));
       },
       itemCount: itemCount,
     );

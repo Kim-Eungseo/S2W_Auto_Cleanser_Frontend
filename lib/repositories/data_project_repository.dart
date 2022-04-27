@@ -1,4 +1,7 @@
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
 
 class DataProjectRepository {
   late final RemoteDataSource remoteDataSource;
@@ -6,13 +9,11 @@ class DataProjectRepository {
 
 class RemoteDataSource {
   Future<List<DataProjectDto>> getDataProjectByName(String name) async {
-    const path = '/v1/project';
-    const params = <String, String>{"name": name};
-    const uri = Uri.https("localhost:8000", path, params);
-    final res = await http.get(uri);
-    if (res.statusCode == HttpStatus.ok) {
-      final data = _bytesToJson(res.bodyBytes) as List;
-      return data.map((el) => Post.fromMap(el as Map)).toList();
+    String uri = "http://localhost:8000/v1/project/?name=" + name;
+    final res = await http.get(Uri.parse(uri));
+    if (res.statusCode == 200) {
+      final data = json.decode(res.body)['data'] as List;
+      return data.map((ele) => DataProjectDto.fromJson(ele as Map<String, dynamic>)).toList();
     } else {
       throw Exception("Error on server");
     }
