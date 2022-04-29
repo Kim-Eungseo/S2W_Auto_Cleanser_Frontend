@@ -28,7 +28,6 @@ class SideMenu extends StatelessWidget {
             press: () {
               Provider.of<MainScreenViewModel>(context, listen: false)
                   .setScreen(Screen.data);
-              print("ho shit");
               },
           ),
           DrawerListTile(

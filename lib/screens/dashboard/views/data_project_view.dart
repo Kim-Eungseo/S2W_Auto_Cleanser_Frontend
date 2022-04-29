@@ -28,7 +28,7 @@ class DataProjectView extends StatelessWidget {
                     children: [
                       // MyFiles(),
                       // SizedBox(height: defaultPadding),
-                      RecentFiles(),
+                      TableView("Data Project List",),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))

@@ -6,10 +6,13 @@ import 'package:flutter_svg/svg.dart';
 import '../../../constants.dart';
 import '../../../responsive.dart';
 
-class RecentFiles extends StatelessWidget {
-  const RecentFiles({
-    Key? key,
+class TableView extends StatelessWidget {
+  final String _title = "";
+
+  const TableView({
+    Key? key
   }) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +29,7 @@ class RecentFiles extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Passed",
+                  title,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 ElevatedButton.icon(
@@ -64,41 +67,6 @@ class RecentFiles extends StatelessWidget {
                 rows: List.generate(
                   demoRecentFiles.length,
                   (index) => recentFileDataRow(demoRecentFiles[index]),
-                ),
-              ),
-            ),
-          ),
-          SizedBox(height: defaultPadding * 1.5),
-          Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  "Failed",
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-              ]
-          ),
-          SingleChildScrollView(
-            primary: false,
-            child: SizedBox(
-              width: double.infinity,
-              child: DataTable2(
-                columnSpacing: defaultPadding,
-                minWidth: 600,
-                columns: [
-                  DataColumn(
-                    label: Text("File Name"),
-                  ),
-                  DataColumn(
-                    label: Text("Date"),
-                  ),
-                  DataColumn(
-                    label: Text("Size"),
-                  ),
-                ],
-                rows: List.generate(
-                  demoRecentFiles.length,
-                      (index) => recentFileDataRow(demoRecentFiles[index]),
                 ),
               ),
             ),
