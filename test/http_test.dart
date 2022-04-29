@@ -3,19 +3,25 @@ import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test("getDataProjectByName", () {
+  test("getDataProjectByName", () async {
     // given
-    RemoteDataSource remoteDataSource = RemoteDataSource();
+    RemoteDataSource4DataProject remoteDataSource = RemoteDataSource4DataProject();
     
     // when
     Future<List<DataProjectDto>> data = remoteDataSource
-        .getDataProjectByName("omg_test_6");
+        .getDataProjectByName("omg_test_3");
 
     //then
-    data.then((value) {
-      print(value.length);
-      print("hello world");
+    await data.then((value) {
+      var len = value.length;
+      print('List length is $len');
+      for (DataProjectDto d in value) {
+        print(d.toString());
+      }
+    }).whenComplete(() {
+      print("All completed");
     });
-    print("hello world");
+    print("async testing");
   });
+
 }

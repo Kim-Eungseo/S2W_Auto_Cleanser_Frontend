@@ -1,5 +1,7 @@
+import 'package:admin/viewmodels/main_screen_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 
 class SideMenu extends StatelessWidget {
@@ -17,24 +19,33 @@ class SideMenu extends StatelessWidget {
             child: SvgPicture.asset(
               "icons/s2wlogo.svg",
               color: Colors.white,
-
               fit: BoxFit.scaleDown
             ),
           ),
           DrawerListTile(
             title: "Data Projects",
             svgSrc: "assets/icons/menu_doc.svg",
-            press: () {},
+            press: () {
+              Provider.of<MainScreenViewModel>(context, listen: false)
+                  .setScreen(Screen.data);
+              print("ho shit");
+              },
           ),
           DrawerListTile(
             title: "Regex Projects",
             svgSrc: "assets/icons/menu_task.svg",
-            press: () {},
+            press: () {
+              Provider.of<MainScreenViewModel>(context, listen: false)
+                  .setScreen(Screen.regex);
+            },
           ),
           DrawerListTile(
             title: "Cleansing Process",
             svgSrc: "assets/icons/menu_tran.svg",
-            press: () {},
+            press: () {
+              Provider.of<MainScreenViewModel>(context, listen: false)
+                  .setScreen(Screen.cleanse);
+            },
           ),
           // DrawerListTile(
           //   title: "Store",
@@ -54,7 +65,10 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: "Settings",
             svgSrc: "assets/icons/menu_setting.svg",
-            press: () {},
+            press: () {
+              Provider.of<MainScreenViewModel>(context, listen: false)
+                  .setScreen(Screen.settings);
+            },
           ),
         ],
       ),

@@ -2,13 +2,13 @@ import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/components/my_regex.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants.dart';
-import 'components/header.dart';
+import '../../../constants.dart';
+import '../components/header.dart';
 
-import 'components/table_view.dart';
-import 'components/storage_details.dart';
+import '../components/table_view.dart';
+import '../components/storage_details.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(

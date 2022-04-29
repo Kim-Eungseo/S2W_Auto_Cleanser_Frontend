@@ -1,10 +1,10 @@
 import 'package:admin/constants.dart';
-import 'package:admin/controllers/MenuController.dart';
+import 'package:admin/viewmodels/main_screen_viewmodel.dart';
+import 'package:admin/viewmodels/menu_viewmodel.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'utils/route.dart';
 
 void main() {
   runApp(MyApp());
@@ -30,14 +30,14 @@ class _MyApp extends State<MyApp> {
             .apply(bodyColor: Colors.white),
         canvasColor: secondaryColor,
       ),
-      // routes: {
-      //
-      // },
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider(
-            create: (context) => MenuController(),
+            create: (context) => MenuProvider(),
           ),
+          ChangeNotifierProvider(
+              create: (context) => MainScreenViewModel()
+          )
         ],
         child: MainScreen(),
       ),

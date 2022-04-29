@@ -1,20 +1,21 @@
-import 'package:admin/screens/dashboard/views/data_project_view.dart';
-import 'package:admin/screens/main/data_project_screen.dart';
-import 'package:admin/viewmodels/main_screen_viewmodel.dart';
+
 import 'package:admin/viewmodels/menu_viewmodel.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/views/dashboard_view.dart';
+import 'package:admin/screens/dashboard/views/data_project_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'components/side_menu.dart';
 
-class MainScreen extends StatelessWidget {
+
+class DataProjectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: context.read<MenuProvider>().scaffoldKey,
+      // key가 왜 필요한지에 대한 파악이 필요하다.
+      // key: context.read<>().scaffoldKey,
       drawer: SideMenu(),
       body: SafeArea(
         child: Row(
@@ -30,26 +31,11 @@ class MainScreen extends StatelessWidget {
             Expanded(
               // It takes 5/6 part of the screen
               flex: 5,
-              child: Consumer<MainScreenViewModel>(
-                builder: (context, mainScreen, child) {
-                  switch (mainScreen.dashboardScreen) {
-                    case Screen.data:
-                      return DataProjectView();
-                    case Screen.regex:
-                      return DashboardView();
-                    case Screen.cleanse:
-                      return DashboardView();
-                    case Screen.settings:
-                      return DashboardView();
-                  }
-                },
-              ),
+              child: DataProjectView(),
             ),
           ],
         ),
       ),
     );
   }
-
-
 }

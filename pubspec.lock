@@ -177,7 +177,7 @@ packages:
     source: hosted
     version: "2.2.1"
   data_table_2:
-    dependency: "direct main"
+    dependency: "direct main_screen_viewmodel.dart"
     description:
       name: data_table_2
       url: "https://pub.dartlang.org"
@@ -219,14 +219,14 @@ packages:
     source: hosted
     version: "1.0.0"
   fl_chart:
-    dependency: "direct main"
+    dependency: "direct main_screen_viewmodel.dart"
     description:
       name: fl_chart
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.36.1"
   flutter:
-    dependency: "direct main"
+    dependency: "direct main_screen_viewmodel.dart"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -236,7 +236,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_svg:
-    dependency: "direct main"
+    dependency: "direct main_screen_viewmodel.dart"
     description:
       name: flutter_svg
       url: "https://pub.dartlang.org"
@@ -267,7 +267,7 @@ packages:
     source: hosted
     version: "2.0.2"
   google_fonts:
-    dependency: "direct main"
+    dependency: "direct main_screen_viewmodel.dart"
     description:
       name: google_fonts
       url: "https://pub.dartlang.org"
@@ -281,7 +281,7 @@ packages:
     source: hosted
     version: "2.1.0"
   http:
-    dependency: "direct main"
+    dependency: "direct main_screen_viewmodel.dart"
     description:
       name: http
       url: "https://pub.dartlang.org"
@@ -316,7 +316,7 @@ packages:
     source: hosted
     version: "0.6.4"
   json_annotation:
-    dependency: "direct main"
+    dependency: "direct main_screen_viewmodel.dart"
     description:
       name: json_annotation
       url: "https://pub.dartlang.org"
@@ -491,7 +491,7 @@ packages:
     source: hosted
     version: "4.2.4"
   provider:
-    dependency: "direct main"
+    dependency: "direct main_screen_viewmodel.dart"
     description:
       name: provider
       url: "https://pub.dartlang.org"

@@ -4,15 +4,15 @@ import 'dart:convert';
 
 
 class DataProjectRepository {
-  late final RemoteDataSource remoteDataSource;
+  late final RemoteDataSource4DataProject remoteDataSource;
 }
 
-class RemoteDataSource {
+class RemoteDataSource4DataProject {
   Future<List<DataProjectDto>> getDataProjectByName(String name) async {
     String uri = "http://localhost:8000/v1/project/?name=" + name;
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
-      final data = json.decode(res.body)['data'] as List;
+      final data = json.decode(res.body) as List;
       return data.map((ele) => DataProjectDto.fromJson(ele as Map<String, dynamic>)).toList();
     } else {
       throw Exception("Error on server");

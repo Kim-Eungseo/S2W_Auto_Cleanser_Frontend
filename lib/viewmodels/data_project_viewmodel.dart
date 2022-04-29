@@ -1,15 +1,14 @@
+import 'package:admin/repositories/data_project_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'data_project_viewmodel.g.dart';
 
 class DataProjectViewModel with ChangeNotifier {
-  List<DataProjectDto> get dataList => _dataList;
-  List<DataProjectDto> _dataList = [];
+  late final DataProjectRepository _dataProjectRepository;
 
-  DataProjectDto get preview => _preview;
-  late DataProjectDto _preview;
-  
+  List<DataProjectDto> dataList = [];
+  late DataProjectDto preview;
 }
 
 @JsonSerializable()
@@ -34,4 +33,9 @@ class DataProjectDto {
       _$DataProjectDtoFromJson(json);
 
   Map<String, dynamic> toJson() => _$DataProjectDtoToJson(this);
+
+  @override
+  String toString() {
+    return 'DataProjectDto{id: $id, name: $name, author: $author, fileText: $fileText, timestamp: $timestamp, head: $head}';
+  }
 }
