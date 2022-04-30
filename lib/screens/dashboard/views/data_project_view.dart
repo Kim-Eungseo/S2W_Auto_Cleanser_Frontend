@@ -1,6 +1,8 @@
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/components/my_regex.dart';
+import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../components/header.dart';
@@ -9,8 +11,12 @@ import '../components/table_view.dart';
 import '../components/storage_details.dart';
 
 class DataProjectView extends StatelessWidget {
+  late final DataProjectViewModel viewModel;
+
   @override
   Widget build(BuildContext context) {
+    viewModel = Provider.of<DataProjectViewModel>(context);
+
     return SafeArea(
       child: SingleChildScrollView(
         primary: false,
@@ -28,7 +34,10 @@ class DataProjectView extends StatelessWidget {
                     children: [
                       // MyFiles(),
                       // SizedBox(height: defaultPadding),
-                      TableView("Data Project List",),
+                      TableView(
+                        title: "Data Project List",
+                        tableViewModel: viewModel,
+                        ),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))

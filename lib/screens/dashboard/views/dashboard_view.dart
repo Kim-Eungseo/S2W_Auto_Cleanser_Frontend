@@ -28,9 +28,9 @@ class DashboardView extends StatelessWidget {
                     children: [
                       MyFiles(),
                       SizedBox(height: defaultPadding),
-                      TableView(title: "Passed",),
+                      // TableView(title: "Passed",),
                       SizedBox(height: defaultPadding),
-                      TableView(title: "Failed",),
+                      // TableView(title: "Failed",),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))

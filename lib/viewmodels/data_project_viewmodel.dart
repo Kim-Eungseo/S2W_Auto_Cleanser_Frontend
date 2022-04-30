@@ -1,14 +1,43 @@
 import 'package:admin/repositories/data_project_repository.dart';
+import 'package:admin/viewmodels/table_viewmodel_interface.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'data_project_viewmodel.g.dart';
 
-class DataProjectViewModel with ChangeNotifier {
+class DataProjectViewModel with ChangeNotifier implements TableViewModel {
   late final DataProjectRepository _dataProjectRepository;
 
-  List<DataProjectDto> dataList = [];
-  late DataProjectDto preview;
+  List<String> _tableColumnList = DataProjectDto.getColumnList();
+  List<DataProjectDto> tableDataList = [];
+
+  List<String> get tableColumnList => _tableColumnList;
+  DataProjectDto? preview;
+
+  void getDataProjectByName(String name) async{
+    Future<List<DataProjectDto>> data = _dataProjectRepository
+        .remoteDataSource
+        .getDataProjectByName(name);
+
+    await data.then((unfuturedDataList) {
+      tableDataList = unfuturedDataList;
+    }).whenComplete(() {
+      for (DataProjectDto d in tableDataList) {
+        print(d.toString());
+      }
+      notifyListeners();
+    });
+  }
+
+  @override
+  List<String> getTableColumnList() {
+    return _tableColumnList;
+  }
+
+  @override
+  List<Map<String, dynamic>> getTableDataList() {
+   return [for (DataProjectDto d in tableDataList) d.toJson()];
+  }
 }
 
 @JsonSerializable()
@@ -37,5 +66,9 @@ class DataProjectDto {
   @override
   String toString() {
     return 'DataProjectDto{id: $id, name: $name, author: $author, fileText: $fileText, timestamp: $timestamp, head: $head}';
+  }
+
+  static List<String> getColumnList(){
+    return ["id", "name", "author", "timestamp"];
   }
 }

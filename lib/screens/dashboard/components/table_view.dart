@@ -1,21 +1,29 @@
 import 'package:admin/models/RecentFile.dart';
+import 'package:admin/viewmodels/table_viewmodel_interface.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../responsive.dart';
 
 class TableView extends StatelessWidget {
-  final String _title = "";
+  final String? title;
+  final TableViewModel? tableViewModel;
 
   const TableView({
-    Key? key
+    Key? key,
+    this.title,
+    this.tableViewModel
   }) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
+    List<String>? tableColumnList = tableViewModel?.getTableColumnList();
+    List<Map<String, dynamic>>? tableDataList = tableViewModel?.getTableDataList();
+
     return Container(
       padding: EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
@@ -29,7 +37,7 @@ class TableView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  title,
+                  title!,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 ElevatedButton.icon(
@@ -54,15 +62,7 @@ class TableView extends StatelessWidget {
                 columnSpacing: defaultPadding,
                 minWidth: 600,
                 columns: [
-                  DataColumn(
-                    label: Text("File Name"),
-                  ),
-                  DataColumn(
-                    label: Text("Date"),
-                  ),
-                  DataColumn(
-                    label: Text("Size"),
-                  ),
+                  for (String s in tableColumnList!) DataColumn(label: Text(s),)
                 ],
                 rows: List.generate(
                   demoRecentFiles.length,
@@ -97,6 +97,7 @@ DataRow recentFileDataRow(RecentFile fileInfo) {
       ),
       DataCell(Text(fileInfo.date!)),
       DataCell(Text(fileInfo.size!)),
+      DataCell(Text("아 이거슨 타임스탬프여")),
     ],
   );
 }
