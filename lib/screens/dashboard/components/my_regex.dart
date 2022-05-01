@@ -1,5 +1,6 @@
 import 'package:admin/models/MyRegex.dart';
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/dashboard/components/text_search_field.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -23,9 +24,9 @@ class MyFiles extends StatelessWidget {
               style: Theme.of(context).textTheme.subtitle1,
             ),
             SizedBox(width: defaultPadding * 2),
-            Expanded(
-              child: AddRegexField(),
-            ),
+            // Expanded(
+            //   child: ProjectSearchField(),
+            // ),
           ],
         ),
         SizedBox(height: defaultPadding),
@@ -72,35 +73,4 @@ class FileInfoCardGridView extends StatelessWidget {
 }
 
 
-class AddRegexField extends StatelessWidget {
-  const AddRegexField({
-    Key? key,
-  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: "Add Regex",
-        fillColor: secondaryColor,
-        filled: true,
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-        ),
-        suffixIcon: InkWell(
-          onTap: () {},
-          child: Container(
-            padding: EdgeInsets.all(defaultPadding * 0.75),
-            margin: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-            decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-            ),
-            child: Icon(Icons.add),
-          ),
-        ),
-      ),
-    );
-  }
-}

@@ -1,4 +1,5 @@
 import 'package:admin/constants.dart';
+import 'package:admin/repositories/data_project_repository.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/main_screen_viewmodel.dart';
 import 'package:admin/viewmodels/menu_viewmodel.dart';
@@ -40,7 +41,9 @@ class _MyApp extends State<MyApp> {
               create: (context) => MainScreenViewModel()
           ),
           ChangeNotifierProvider(
-              create: (context) => DataProjectViewModel()
+              create: (context) => DataProjectViewModel(
+                  dataProjectRepository: DataProjectRepository()
+              )
           )
         ],
         child: MainScreen(),

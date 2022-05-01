@@ -45,7 +45,7 @@ class SearchField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
-        hintText: "Search",
+        hintText: "아 이건 아직 별기능 없다요",
         fillColor: secondaryColor,
         filled: true,
         border: OutlineInputBorder(
@@ -61,7 +61,7 @@ class SearchField extends StatelessWidget {
               color: primaryColor,
               borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
-            child: SvgPicture.asset("assets/icons/Search.svg"),
+            child: Text("하하"),
           ),
         ),
       ),

@@ -5,6 +5,10 @@ import 'dart:convert';
 
 class DataProjectRepository {
   late final RemoteDataSource4DataProject remoteDataSource;
+
+  DataProjectRepository() {
+    remoteDataSource = RemoteDataSource4DataProject();
+  }
 }
 
 class RemoteDataSource4DataProject {

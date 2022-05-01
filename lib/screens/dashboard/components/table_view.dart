@@ -1,28 +1,27 @@
 import 'package:admin/models/RecentFile.dart';
-import 'package:admin/viewmodels/table_viewmodel_interface.dart';
+import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../responsive.dart';
 
 class TableView extends StatelessWidget {
   final String? title;
-  final TableViewModel? tableViewModel;
+  final TableViewModelInterface? viewModel;
 
   const TableView({
     Key? key,
     this.title,
-    this.tableViewModel
+    this.viewModel
   }) : super(key: key);
 
 
   @override
   Widget build(BuildContext context) {
-    List<String>? tableColumnList = tableViewModel?.getTableColumnList();
-    List<Map<String, dynamic>>? tableDataList = tableViewModel?.getTableDataList();
+    List<String>? tableColumnList = viewModel?.tableColumnList;
+    List<Map<String, dynamic>>? tableDataList = viewModel?.getTableDataList();
 
     return Container(
       padding: EdgeInsets.all(defaultPadding),
@@ -55,6 +54,7 @@ class TableView extends StatelessWidget {
              ]
           ),
           SingleChildScrollView(
+            // scrollDirection: Axis.horizontal,
             primary: false,
             child: SizedBox(
               width: double.infinity,
@@ -62,11 +62,21 @@ class TableView extends StatelessWidget {
                 columnSpacing: defaultPadding,
                 minWidth: 600,
                 columns: [
-                  for (String s in tableColumnList!) DataColumn(label: Text(s),)
+                  for (String s in tableColumnList!)
+                    DataColumn(
+                      label: Text(
+                          s,
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    )
                 ],
+                // rows: List.generate(
+                //   demoRecentFiles.length,
+                //   (index) => recentFileDataRow(demoRecentFiles[index]),
+                // ),
                 rows: List.generate(
-                  demoRecentFiles.length,
-                  (index) => recentFileDataRow(demoRecentFiles[index]),
+                  tableDataList!.length,
+                      (index) => returnTableData(tableDataList[index], tableColumnList),
                 ),
               ),
             ),
@@ -75,29 +85,32 @@ class TableView extends StatelessWidget {
       ),
     );
   }
+
+  DataRow returnTableData(Map<String, dynamic> map, List<String> colList) {
+    return DataRow(
+      cells: [
+        for (String col in colList)
+          DataCell(
+              Text(
+                  map[col].toString(),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2
+              )
+          )
+      ],
+    );
+  }
+
+  DataRow recentFileDataRow(RecentFile fileInfo) {
+    return DataRow(
+      cells: [
+        DataCell(Text(fileInfo.title!, overflow: TextOverflow.ellipsis, maxLines: 2,)),
+        DataCell(Text(fileInfo.date!, overflow: TextOverflow.ellipsis, maxLines: 2,)),
+        DataCell(Text(fileInfo.size!, overflow: TextOverflow.ellipsis, maxLines: 2,)),
+        DataCell(Text("아 이거슨 타임스탬프여", overflow: TextOverflow.ellipsis,)),
+      ],
+    );
+  }
 }
 
-DataRow recentFileDataRow(RecentFile fileInfo) {
-  return DataRow(
-    cells: [
-      DataCell(
-        Row(
-          children: [
-            SvgPicture.asset(
-              fileInfo.icon!,
-              height: 30,
-              width: 30,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Text(fileInfo.title!),
-            ),
-          ],
-        ),
-      ),
-      DataCell(Text(fileInfo.date!)),
-      DataCell(Text(fileInfo.size!)),
-      DataCell(Text("아 이거슨 타임스탬프여")),
-    ],
-  );
-}
+

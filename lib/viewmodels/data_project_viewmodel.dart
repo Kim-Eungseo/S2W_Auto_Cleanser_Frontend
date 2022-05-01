@@ -1,21 +1,27 @@
 import 'package:admin/repositories/data_project_repository.dart';
-import 'package:admin/viewmodels/table_viewmodel_interface.dart';
+import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
+import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'data_project_viewmodel.g.dart';
 
-class DataProjectViewModel with ChangeNotifier implements TableViewModel {
-  late final DataProjectRepository _dataProjectRepository;
+class DataProjectViewModel with ChangeNotifier 
+    implements TableViewModelInterface, SearchFieldViewModelInterface {
+  
+  final DataProjectRepository? dataProjectRepository;
+
+  DataProjectViewModel({
+    this.dataProjectRepository
+  });
 
   List<String> _tableColumnList = DataProjectDto.getColumnList();
   List<DataProjectDto> tableDataList = [];
 
-  List<String> get tableColumnList => _tableColumnList;
   DataProjectDto? preview;
 
-  void getDataProjectByName(String name) async{
-    Future<List<DataProjectDto>> data = _dataProjectRepository
+  void search(String name) async{
+    Future<List<DataProjectDto>> data = dataProjectRepository!
         .remoteDataSource
         .getDataProjectByName(name);
 
@@ -30,13 +36,16 @@ class DataProjectViewModel with ChangeNotifier implements TableViewModel {
   }
 
   @override
-  List<String> getTableColumnList() {
-    return _tableColumnList;
+  List<Map<String, dynamic>> getTableDataList() {
+   return [for (DataProjectDto d in tableDataList) d.toJson()];
   }
 
   @override
-  List<Map<String, dynamic>> getTableDataList() {
-   return [for (DataProjectDto d in tableDataList) d.toJson()];
+  List<String> get tableColumnList => _tableColumnList;
+
+  @override
+  void onPressedSearchButton() {
+    print("아 잠깐만 기다려요우");
   }
 }
 
