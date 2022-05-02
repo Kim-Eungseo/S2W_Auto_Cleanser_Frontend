@@ -68,7 +68,7 @@ class DataProjectView extends StatelessWidget {
   }
 }
 
-class DataProjectSearchField extends StatelessWidget{
+class DataProjectSearchField extends StatefulWidget{
   final String? searchFieldTitle;
   final SearchFieldViewModelInterface? viewModel;
 
@@ -77,6 +77,27 @@ class DataProjectSearchField extends StatelessWidget{
     this.searchFieldTitle,
     this.viewModel,
   }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _DataProjectSearchField();
+}
+
+class _DataProjectSearchField extends State<DataProjectSearchField>{
+  String? searchFieldTitle;
+  SearchFieldViewModelInterface? viewModel;
+
+  // const _DataProjectSearchField({
+  //   Key? key,
+  //   this.searchFieldTitle,
+  //   this.viewModel,
+  // }) : super(key: key);
+
+  @override
+  void initState(){
+    super.initState();
+    this.searchFieldTitle = widget.searchFieldTitle;
+    this.viewModel = widget.viewModel;
+  }
 
   @override
   Widget build(BuildContext context) {

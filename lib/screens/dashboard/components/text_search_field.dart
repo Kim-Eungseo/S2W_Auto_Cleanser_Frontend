@@ -5,7 +5,7 @@ import '../../../constants.dart';
 import '../../../viewmodels/interfaces/search_field_viewmodel_interface.dart';
 
 
-class ContentSearchField extends StatelessWidget {
+class ContentSearchField extends StatefulWidget {
   final String? hintText;
   final SearchFieldViewModelInterface? viewModel;
 
@@ -16,9 +16,36 @@ class ContentSearchField extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _ContentSearchField();
+
+}
+
+class _ContentSearchField extends State<ContentSearchField> {
+  String? hintText;
+  SearchFieldViewModelInterface? viewModel;
+
+  String fieldText = "";
+
+  // const ContentSearchField({
+  //   Key? key,
+  //   this.hintText,
+  //   this.viewModel
+  // }) : super(key: key);
+
+  @override
+  void initState(){
+    super.initState();
+    this.hintText = widget.hintText;
+    this.viewModel = widget.viewModel;
+  }
+
+  @override
   Widget build(BuildContext context) {
 
     return TextField(
+      onChanged: (text) {
+        fieldText = text;
+      },
       decoration: InputDecoration(
         hintText: hintText!,
         fillColor: secondaryColor,
@@ -28,7 +55,7 @@ class ContentSearchField extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         suffixIcon: InkWell(
-          onTap: () {viewModel?.search("omg_test_3");},
+          onTap: () {viewModel?.search(fieldText);},
           child: Container(
             padding: EdgeInsets.all(defaultPadding * 0.75),
             margin: EdgeInsets.symmetric(horizontal: defaultPadding / 2),

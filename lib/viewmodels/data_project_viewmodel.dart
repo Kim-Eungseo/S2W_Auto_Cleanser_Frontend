@@ -42,11 +42,6 @@ class DataProjectViewModel with ChangeNotifier
 
   @override
   List<String> get tableColumnList => _tableColumnList;
-
-  @override
-  void onPressedSearchButton() {
-    print("아 잠깐만 기다려요우");
-  }
 }
 
 @JsonSerializable()
