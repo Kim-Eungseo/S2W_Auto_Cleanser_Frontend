@@ -19,6 +19,7 @@ class DataProjectViewModel with ChangeNotifier
   List<DataProjectDto> tableDataList = [];
 
   DataProjectDto? preview;
+  bool isPreview = false;
 
   void search(String name) async{
     Future<List<DataProjectDto>> data = dataProjectRepository!
