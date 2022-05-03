@@ -1,5 +1,4 @@
 import 'package:admin/screens/dashboard/views/data_project_view.dart';
-import 'package:admin/screens/main/data_project_screen.dart';
 import 'package:admin/viewmodels/main_screen_viewmodel.dart';
 import 'package:admin/viewmodels/menu_viewmodel.dart';
 import 'package:admin/responsive.dart';
@@ -40,6 +39,10 @@ class MainScreen extends StatelessWidget {
                     case Screen.cleanse:
                       return DashboardView();
                     case Screen.settings:
+                      return DashboardView();
+                    case Screen.dataPreview:
+                      return DashboardView();
+                    case Screen.regexPreview:
                       return DashboardView();
                   }
                 },

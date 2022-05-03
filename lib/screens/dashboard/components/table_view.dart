@@ -76,7 +76,7 @@ class TableView extends StatelessWidget {
                 // ),
                 rows: List.generate(
                   tableDataList!.length,
-                      (index) => returnTableData(tableDataList[index], tableColumnList),
+                      (index) => returnTableData(tableDataList[index], tableColumnList, index),
                 ),
               ),
             ),
@@ -86,7 +86,7 @@ class TableView extends StatelessWidget {
     );
   }
 
-  DataRow returnTableData(Map<String, dynamic> map, List<String> colList) {
+  DataRow returnTableData(Map<String, dynamic> map, List<String> colList, int index) {
     return DataRow(
       cells: [
         for (String col in colList)

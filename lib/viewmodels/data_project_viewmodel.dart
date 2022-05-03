@@ -16,7 +16,7 @@ class DataProjectViewModel with ChangeNotifier
   });
 
   List<String> _tableColumnList = DataProjectDto.getColumnList();
-  List<DataProjectDto> tableDataList = [];
+  List<Map<String, dynamic>> tableDataList = [];
 
   DataProjectDto? preview;
   bool isPreview = false;
@@ -27,22 +27,24 @@ class DataProjectViewModel with ChangeNotifier
         .getDataProjectByName(name);
 
     await data.then((unfuturedDataList) {
-      tableDataList = unfuturedDataList;
+      tableDataList = [for (DataProjectDto d in unfuturedDataList) d.toJson()];
     }).whenComplete(() {
-      for (DataProjectDto d in tableDataList) {
-        print(d.toString());
-      }
       notifyListeners();
     });
   }
 
   @override
   List<Map<String, dynamic>> getTableDataList() {
-   return [for (DataProjectDto d in tableDataList) d.toJson()];
+   return tableDataList;
   }
 
   @override
   List<String> get tableColumnList => _tableColumnList;
+
+  @override
+  void onRowTap(int index) {
+
+  }
 }
 
 @JsonSerializable()
@@ -76,4 +78,5 @@ class DataProjectDto {
   static List<String> getColumnList(){
     return ["id", "name", "author", "timestamp"];
   }
+
 }

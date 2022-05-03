@@ -6,13 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../viewmodels/main_screen_viewmodel.dart';
 import '../components/header.dart';
 
 import '../components/table_view.dart';
 import '../components/storage_details.dart';
 import '../components/text_search_field.dart';
 
-class DataProjectView extends StatelessWidget {
+class SelectedDataProjectView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +34,19 @@ class DataProjectView extends StatelessWidget {
                   flex: 4,
                   child: Column(
                     children: [
-                      DataProjectSearchField(
-                        searchFieldTitle: "Data Project Search",
+                      SizedBox(height: defaultPadding),
+                      Consumer<MainScreenViewModel>(
+                      builder: (context, mainScreen, child) {
+                        return TableView(
+                          title: "Project Info",
+                          viewModel: mainScreen.selectedDataTableViewModel,
+                        );
+                      }),
+                      SizedBox(height: defaultPadding),
+                      TableView(
+                        title: "Data",
                         viewModel: viewModel,
                       ),
-                      SizedBox(height: defaultPadding),
-                      // MyFiles(),
-                      // SizedBox(height: defaultPadding),
-                      TableView(
-                        title: "Projects",
-                        viewModel: viewModel,
-                        ),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
