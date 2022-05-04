@@ -10,11 +10,13 @@ import '../../../responsive.dart';
 class TableView extends StatelessWidget {
   final String? title;
   final TableViewModelInterface? viewModel;
+  final void Function(Map<String, dynamic> map)? onRowTap;
 
   const TableView({
     Key? key,
     this.title,
-    this.viewModel
+    this.viewModel,
+    this.onRowTap
   }) : super(key: key);
 
 
@@ -76,7 +78,7 @@ class TableView extends StatelessWidget {
                 // ),
                 rows: List.generate(
                   tableDataList!.length,
-                      (index) => returnTableData(tableDataList[index], tableColumnList, index),
+                      (index) => returnTableData(tableDataList[index], tableColumnList),
                 ),
               ),
             ),
@@ -86,7 +88,8 @@ class TableView extends StatelessWidget {
     );
   }
 
-  DataRow returnTableData(Map<String, dynamic> map, List<String> colList, int index) {
+  // 이 부분 파라미터 개수를 줄일 수 있는 방법을 모색해야 한다.
+  DataRow returnTableData(Map<String, dynamic> map, List<String> colList) {
     return DataRow(
       cells: [
         for (String col in colList)
@@ -95,7 +98,8 @@ class TableView extends StatelessWidget {
                   map[col].toString(),
                   overflow: TextOverflow.ellipsis,
                   maxLines: 2
-              )
+              ),
+            onTap: () => (onRowTap ?? (Map<String, dynamic> map) {})(map)
           )
       ],
     );

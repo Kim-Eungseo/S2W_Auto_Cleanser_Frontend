@@ -1,28 +1,29 @@
 import 'package:admin/repositories/data_project_repository.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
+import 'package:admin/viewmodels/main_screen_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:provider/provider.dart';
 
 part 'data_project_viewmodel.g.dart';
 
 class DataProjectViewModel with ChangeNotifier 
     implements TableViewModelInterface, SearchFieldViewModelInterface {
   
-  final DataProjectRepository? dataProjectRepository;
+  final DataProjectRepository dataProjectRepository;
 
-  DataProjectViewModel({
+  DataProjectViewModel(
     this.dataProjectRepository
-  });
+  );
 
   List<String> _tableColumnList = DataProjectDto.getColumnList();
   List<Map<String, dynamic>> tableDataList = [];
 
   DataProjectDto? preview;
-  bool isPreview = false;
 
   void search(String name) async{
-    Future<List<DataProjectDto>> data = dataProjectRepository!
+    Future<List<DataProjectDto>> data = dataProjectRepository
         .remoteDataSource
         .getDataProjectByName(name);
 
@@ -41,10 +42,7 @@ class DataProjectViewModel with ChangeNotifier
   @override
   List<String> get tableColumnList => _tableColumnList;
 
-  @override
-  void onRowTap(int index) {
 
-  }
 }
 
 @JsonSerializable()
@@ -54,7 +52,7 @@ class DataProjectDto {
   final String? author;
   final String? fileText;
   final String? timestamp;
-  final Map? head;
+  final Map<String, dynamic>? head;
 
   DataProjectDto({
     this.id,

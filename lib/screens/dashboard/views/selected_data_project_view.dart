@@ -2,11 +2,14 @@ import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/components/my_regex.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
+import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
+import 'package:admin/viewmodels/selected_data_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../viewmodels/main_screen_viewmodel.dart';
+import '../../../viewmodels/selected_data_head_viewmodel.dart';
 import '../components/header.dart';
 
 import '../components/table_view.dart';
@@ -18,6 +21,9 @@ class SelectedDataProjectView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DataProjectViewModel viewModel = Provider.of<DataProjectViewModel>(context);
+    final TableViewModelInterface dataPreviewModel = Provider.of<SelectedDataTableViewModel>(context);
+    final TableViewModelInterface dataTablePreviewModel = Provider.of<SelectedDataHeadTableViewModel>(context);
+
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -39,13 +45,13 @@ class SelectedDataProjectView extends StatelessWidget {
                       builder: (context, mainScreen, child) {
                         return TableView(
                           title: "Project Info",
-                          viewModel: mainScreen.selectedDataTableViewModel,
+                          viewModel: dataPreviewModel,
                         );
                       }),
                       SizedBox(height: defaultPadding),
                       TableView(
                         title: "Data",
-                        viewModel: viewModel,
+                        viewModel: dataTablePreviewModel,
                       ),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
