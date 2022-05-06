@@ -20,7 +20,9 @@ class SelectedDataTableViewModel extends ChangeNotifier
 
   void setSelectedData(Map<String, dynamic> data) {
     tableDataList = <Map<String, dynamic>>[data];
-    print("SelectedDataTableViewModel listens");
+  }
+
+  void notify() {
     notifyListeners();
   }
 

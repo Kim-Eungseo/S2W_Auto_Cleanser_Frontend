@@ -1,5 +1,6 @@
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../repositories/data_project_repository.dart';
@@ -37,15 +38,26 @@ class SelectedDataHeadTableViewModel extends ChangeNotifier
   }
 
   void searchById(int id) async{
-    Future<DataProjectDto> data = dataProjectRepository!
+    Future<DataProjectDto> data = dataProjectRepository
         .remoteDataSource
         .getDataProjectById(id);
 
     await data.then((unfuturedData) {
       Map<String, dynamic> head = unfuturedData.head!;
-      List<String> colList = head.keys.toList();
-      // tableDataList = unfuturedData.head.;
+      this.tableColumnList = head.keys.toList();
+      print(head.toString());
 
+      List<Map<String, dynamic>> dataList = [];
+
+      for (int i = 0; i < (head[this.tableColumnList[0]] as List).length; i++){
+        dataList.add(
+            Map<String, dynamic>.fromIterables(
+            this.tableColumnList, this.tableColumnList
+            .map((value) => head[value]![i])
+        )
+        );
+      }
+      tableDataList = dataList;
     }).whenComplete(() {
       notifyListeners();
     });

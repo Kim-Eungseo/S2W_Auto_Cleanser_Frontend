@@ -40,6 +40,26 @@ class SelectedDataProjectView extends StatelessWidget {
                   flex: 4,
                   child: Column(
                     children: [
+                      Row(
+                        children: [
+                          ElevatedButton.icon(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: defaultPadding * 1.5,
+                                vertical:
+                                defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                              ),
+                            ),
+                            onPressed: () {
+                              Provider.of<MainScreenViewModel>(context, listen: false)
+                                  .setScreen(Screen.data);
+                            },
+                            icon: Icon(Icons.arrow_back),
+                            label: Text("Go back to search"),
+                          ),
+                          Spacer(),
+                        ],
+                      ),
                       SizedBox(height: defaultPadding),
                       Consumer<MainScreenViewModel>(
                       builder: (context, mainScreen, child) {
@@ -50,7 +70,7 @@ class SelectedDataProjectView extends StatelessWidget {
                       }),
                       SizedBox(height: defaultPadding),
                       TableView(
-                        title: "Data",
+                        title: "Data preview for 5 rows",
                         viewModel: dataTablePreviewModel,
                       ),
                       if (Responsive.isMobile(context))

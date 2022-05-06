@@ -11,12 +11,14 @@ class TableView extends StatelessWidget {
   final String? title;
   final TableViewModelInterface? viewModel;
   final void Function(Map<String, dynamic> map)? onRowTap;
+  final bool? isButton;
 
   const TableView({
     Key? key,
     this.title,
     this.viewModel,
-    this.onRowTap
+    this.onRowTap,
+    this.isButton,
   }) : super(key: key);
 
 
@@ -41,18 +43,19 @@ class TableView extends StatelessWidget {
                   title!,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
-                ElevatedButton.icon(
-                  style: TextButton.styleFrom(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: defaultPadding * 1.5,
-                      vertical:
-                      defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                if (this.isButton ?? false)
+                  ElevatedButton.icon(
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: defaultPadding * 1.5,
+                        vertical:
+                        defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                      ),
                     ),
+                    onPressed: () {},
+                    icon: Icon(Icons.add),
+                    label: Text("Add New"),
                   ),
-                  onPressed: () {},
-                  icon: Icon(Icons.add),
-                  label: Text("Add New"),
-                ),
              ]
           ),
           SingleChildScrollView(
