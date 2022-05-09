@@ -3,8 +3,10 @@ import 'package:admin/screens/dashboard/components/my_regex.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
+import 'package:admin/viewmodels/new_data_project_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -16,18 +18,31 @@ import '../components/table_view.dart';
 import '../components/storage_details.dart';
 import '../components/text_search_field.dart';
 
-class SelectedDataProjectView extends StatelessWidget {
+class NewDataProjectView extends StatefulWidget {
+  const NewDataProjectView(
+      {Key? key}) : super(key: key);
 
-  const SelectedDataProjectView({
-    Key? key
-  }) : super(key: key);
+  @override
+  State<StatefulWidget> createState() => _NewDataProjectView();
+
+}
+
+class _NewDataProjectView extends State<NewDataProjectView> {
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  // const _NewDataProjectView({
+  //   Key? key
+  // }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final DataProjectViewModel viewModel = Provider.of<DataProjectViewModel>(context);
-    final TableViewModelInterface dataPreviewModel = Provider.of<SelectedDataTableViewModel>(context);
-    final TableViewModelInterface dataTablePreviewModel = Provider.of<SelectedDataHeadTableViewModel>(context);
-
+    final NewDataProjectViewModel viewModel
+    = Provider.of<NewDataProjectViewModel>(context);
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -65,18 +80,7 @@ class SelectedDataProjectView extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: defaultPadding),
-                      Consumer<MainScreenViewModel>(
-                      builder: (context, mainScreen, child) {
-                        return TableView(
-                          title: "Project Info",
-                          viewModel: dataPreviewModel,
-                        );
-                      }),
-                      SizedBox(height: defaultPadding),
-                      TableView(
-                        title: "Data preview for 5 rows",
-                        viewModel: dataTablePreviewModel,
-                      ),
+                      NewProjectContainerView(viewModel),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
@@ -101,55 +105,65 @@ class SelectedDataProjectView extends StatelessWidget {
   }
 }
 
-class DataProjectSearchField extends StatefulWidget{
-  final String? searchFieldTitle;
-  final SearchFieldViewModelInterface? viewModel;
-
-  const DataProjectSearchField({
-    Key? key,
-    this.searchFieldTitle,
-    this.viewModel,
-  }) : super(key: key);
+class NewProjectContainerView extends StatefulWidget {
+  final NewDataProjectViewModel viewModel;
+  NewProjectContainerView(this.viewModel);
 
   @override
-  State<StatefulWidget> createState() => _DataProjectSearchField();
+  State<StatefulWidget> createState() => _NewProjectContainerView();
+
 }
 
-class _DataProjectSearchField extends State<DataProjectSearchField>{
-  String? searchFieldTitle;
-  SearchFieldViewModelInterface? viewModel;
+class _NewProjectContainerView extends State<NewProjectContainerView> {
 
-  // const _DataProjectSearchField({
-  //   Key? key,
-  //   this.searchFieldTitle,
-  //   this.viewModel,
-  // }) : super(key: key);
+  NewDataProjectViewModel? viewModel;
+  Map<String, String> newData = {};
 
   @override
-  void initState(){
-    super.initState();
-    this.searchFieldTitle = widget.searchFieldTitle;
-    this.viewModel = widget.viewModel;
+  void initState() {
+    viewModel = widget.viewModel;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          searchFieldTitle!,
-          style: Theme.of(context).textTheme.subtitle1,
-        ),
-        SizedBox(width: defaultPadding * 2),
-        Expanded(
-          child: ContentSearchField(
-            hintText: "Type Data Project Name Here.",
-            viewModel: viewModel,
-          ),
-        ),
-      ],
+    return Container(
+      padding: EdgeInsets.all(defaultPadding),
+      decoration: BoxDecoration(
+        color: secondaryColor,
+        borderRadius: const BorderRadius.all(Radius.circular(10)),
+      ),
+      child:
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            for (String s in viewModel!.schema.keys)
+            Column(
+              children: [
+               Flexible(
+                   child: Text(s)
+               ),
+                Flexible(
+                   flex: 3,
+                   child: TextField(
+                   onChanged: (text) {
+                     newData[s] = text;
+                     print(newData);
+                   },
+                   decoration: InputDecoration(
+                     hintText: viewModel!.schema[s],
+                     fillColor: secondaryColor,
+                     filled: true,
+                     border: OutlineInputBorder(
+                         borderSide: BorderSide.none,
+                         borderRadius: const BorderRadius.all(Radius.circular(10))
+                     ),
+                   ),
+                 ),
+               ),
+              ],
+            )
+          ],
+        )
     );
   }
-
 }

@@ -4,6 +4,7 @@ import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/main_screen_viewmodel.dart';
 import 'package:admin/viewmodels/menu_viewmodel.dart';
 import 'package:admin/screens/main/main_screen.dart';
+import 'package:admin/viewmodels/new_data_project_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_head_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_viewmodel.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +55,9 @@ class _MyApp extends State<MyApp> {
               create: (context) => SelectedDataHeadTableViewModel(
                   DataProjectRepository()
               )
+          ),
+          ChangeNotifierProvider(
+              create: (context) => NewDataProjectViewModel()
           ),
         ],
         child: MainScreen(),

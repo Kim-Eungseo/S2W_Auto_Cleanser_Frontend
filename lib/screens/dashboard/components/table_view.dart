@@ -12,6 +12,9 @@ class TableView extends StatelessWidget {
   final TableViewModelInterface? viewModel;
   final void Function(Map<String, dynamic> map)? onRowTap;
   final bool? isButton;
+  final IconData? buttonIcon;
+  final String? buttonText;
+  final void Function()? onButtonTap;
 
   const TableView({
     Key? key,
@@ -19,6 +22,9 @@ class TableView extends StatelessWidget {
     this.viewModel,
     this.onRowTap,
     this.isButton,
+    this.buttonIcon,
+    this.buttonText,
+    this.onButtonTap,
   }) : super(key: key);
 
 
@@ -52,9 +58,9 @@ class TableView extends StatelessWidget {
                         defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
                       ),
                     ),
-                    onPressed: () {},
-                    icon: Icon(Icons.add),
-                    label: Text("Add New"),
+                    onPressed: onButtonTap ?? () {},
+                    icon: Icon(this.buttonIcon ?? Icons.add),
+                    label: Text(this.buttonText ?? "Add New"),
                   ),
              ]
           ),

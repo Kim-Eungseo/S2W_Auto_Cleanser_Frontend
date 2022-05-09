@@ -23,7 +23,7 @@ class DashboardView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  flex: 4,
+                  flex: 5,
                   child: Column(
                     children: [
                       MyFiles(),
@@ -43,7 +43,7 @@ class DashboardView extends StatelessWidget {
                 // On Mobile means if the screen is less than 850 we dont want to show it
                 if (!Responsive.isMobile(context))
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: StorageDetails(),
                   ),
               ],

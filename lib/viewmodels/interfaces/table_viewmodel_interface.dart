@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class TableViewModelInterface {
   List<String> _tableColumnList;
   List<Map<String, dynamic>> tableDataList;
@@ -7,5 +9,4 @@ class TableViewModelInterface {
   List<String> get tableColumnList => _tableColumnList;
   List<Map<String, dynamic>> getTableDataList() {return tableDataList;}
 
-  // void Function(int index) onRowTap => {};
 }

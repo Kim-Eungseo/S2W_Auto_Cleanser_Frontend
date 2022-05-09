@@ -39,7 +39,7 @@ class DataProjectView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  flex: 4,
+                  flex: 5,
                   child: Column(
                     children: [
                       DataProjectSearchField(
@@ -58,6 +58,9 @@ class DataProjectView extends StatelessWidget {
                           Provider.of<MainScreenViewModel>(context, listen: false)
                           .setScreen(Screen.dataPreview);
                         },
+                        isButton: true,
+                        onButtonTap: () {Provider.of<MainScreenViewModel>(context, listen: false)
+                            .setScreen(Screen.newDataProject);},
                         ),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
@@ -71,7 +74,7 @@ class DataProjectView extends StatelessWidget {
                 // On Mobile means if the screen is less than 850 we dont want to show it
                 if (!Responsive.isMobile(context))
                   Expanded(
-                    flex: 1,
+                    flex: 2,
                     child: StorageDetails(),
                   ),
               ],
