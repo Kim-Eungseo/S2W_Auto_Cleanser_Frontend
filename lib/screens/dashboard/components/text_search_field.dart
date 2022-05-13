@@ -5,11 +5,11 @@ import '../../../constants.dart';
 import '../../../viewmodels/interfaces/search_field_viewmodel_interface.dart';
 
 
-class ContentSearchField extends StatefulWidget {
+class ContentSearchFieldView extends StatefulWidget {
   final String? hintText;
   final SearchFieldViewModelInterface? viewModel;
 
-  const ContentSearchField({
+  const ContentSearchFieldView({
     Key? key,
     this.hintText,
     this.viewModel
@@ -20,7 +20,7 @@ class ContentSearchField extends StatefulWidget {
 
 }
 
-class _ContentSearchField extends State<ContentSearchField> {
+class _ContentSearchField extends State<ContentSearchFieldView> {
   String? hintText;
   SearchFieldViewModelInterface? viewModel;
 

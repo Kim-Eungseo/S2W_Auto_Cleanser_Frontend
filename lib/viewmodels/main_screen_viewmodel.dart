@@ -13,6 +13,6 @@ class MainScreenViewModel extends ChangeNotifier {
 }
 
 enum Screen { data, regex, cleanse, settings,
-  dataPreview, regexPreview, newDataProject }
+  dataPreview, regexPreview, newDataProject, newRegexProject }
 
 

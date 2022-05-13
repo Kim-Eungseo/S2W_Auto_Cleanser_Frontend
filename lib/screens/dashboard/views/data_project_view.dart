@@ -12,6 +12,7 @@ import 'package:provider/provider.dart';
 import '../../../constants.dart';
 import '../components/header.dart';
 
+import '../components/project_search_field.dart';
 import '../components/table_view.dart';
 import '../components/storage_details.dart';
 import '../components/text_search_field.dart';
@@ -42,9 +43,10 @@ class DataProjectView extends StatelessWidget {
                   flex: 5,
                   child: Column(
                     children: [
-                      DataProjectSearchField(
+                      ProjectSearchField(
                         searchFieldTitle: "Data Project Search",
                         viewModel: viewModel,
+                        hintText: "Type Data Project Name Here.",
                       ),
                       SizedBox(height: defaultPadding),
                       // MyFiles(),
@@ -86,55 +88,3 @@ class DataProjectView extends StatelessWidget {
   }
 }
 
-class DataProjectSearchField extends StatefulWidget{
-  final String? searchFieldTitle;
-  final SearchFieldViewModelInterface? viewModel;
-
-  const DataProjectSearchField({
-    Key? key,
-    this.searchFieldTitle,
-    this.viewModel,
-  }) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _DataProjectSearchField();
-}
-
-class _DataProjectSearchField extends State<DataProjectSearchField>{
-  String? searchFieldTitle;
-  SearchFieldViewModelInterface? viewModel;
-
-  // const _DataProjectSearchField({
-  //   Key? key,
-  //   this.searchFieldTitle,
-  //   this.viewModel,
-  // }) : super(key: key);
-
-  @override
-  void initState(){
-    super.initState();
-    this.searchFieldTitle = widget.searchFieldTitle;
-    this.viewModel = widget.viewModel;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          searchFieldTitle!,
-          style: Theme.of(context).textTheme.subtitle1,
-        ),
-        SizedBox(width: defaultPadding * 2),
-        Expanded(
-          child: ContentSearchField(
-            hintText: "Type Data Project Name Here.",
-            viewModel: viewModel,
-          ),
-        ),
-      ],
-    );
-  }
-
-}

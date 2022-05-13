@@ -143,7 +143,7 @@ class _DataProjectSearchField extends State<DataProjectSearchField>{
         ),
         SizedBox(width: defaultPadding * 2),
         Expanded(
-          child: ContentSearchField(
+          child: ContentSearchFieldView(
             hintText: "Type Data Project Name Here.",
             viewModel: viewModel,
           ),
