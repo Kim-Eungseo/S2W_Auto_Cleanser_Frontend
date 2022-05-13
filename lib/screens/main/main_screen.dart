@@ -1,5 +1,6 @@
 import 'package:admin/screens/dashboard/views/data_project_view.dart';
 import 'package:admin/screens/dashboard/views/new_data_project_view.dart';
+import 'package:admin/screens/dashboard/views/regex_project_view.dart';
 import 'package:admin/screens/dashboard/views/selected_data_project_view.dart';
 import 'package:admin/viewmodels/main_screen_viewmodel.dart';
 import 'package:admin/viewmodels/menu_viewmodel.dart';
@@ -37,7 +38,7 @@ class MainScreen extends StatelessWidget {
                     case Screen.data:
                       return DataProjectView();
                     case Screen.regex:
-                      return DashboardView();
+                      return RegexProjectView();
                     case Screen.cleanse:
                       return DashboardView();
                     case Screen.settings:
