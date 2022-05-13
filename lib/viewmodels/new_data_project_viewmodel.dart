@@ -10,7 +10,7 @@ class NewDataProjectViewModel extends ChangeNotifier {
     "file_text": "put the table data text on here"
   };
 
-  void addNewDataProject(Map<String, dynamic> data) {
-    notifyListeners();
+  void addNewDataProject(Map<String, String> data) {
+    dataProjectRepository.remoteDataSource.toString();
   }
 }

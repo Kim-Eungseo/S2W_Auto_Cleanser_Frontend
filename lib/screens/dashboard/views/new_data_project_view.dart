@@ -121,49 +121,79 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
 
   @override
   void initState() {
+    super.initState();
     viewModel = widget.viewModel;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(defaultPadding),
-      decoration: BoxDecoration(
-        color: secondaryColor,
-        borderRadius: const BorderRadius.all(Radius.circular(10)),
-      ),
-      child:
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            for (String s in viewModel!.schema.keys)
-            Column(
-              children: [
-               Flexible(
-                   child: Text(s)
-               ),
-                Flexible(
-                   flex: 3,
-                   child: TextField(
-                   onChanged: (text) {
-                     newData[s] = text;
-                     print(newData);
-                   },
-                   decoration: InputDecoration(
-                     hintText: viewModel!.schema[s],
-                     fillColor: secondaryColor,
-                     filled: true,
-                     border: OutlineInputBorder(
-                         borderSide: BorderSide.none,
-                         borderRadius: const BorderRadius.all(Radius.circular(10))
+    return SingleChildScrollView(
+      primary: false,
+      child: Container(
+        height: 400,
+        padding: EdgeInsets.all(defaultPadding),
+        decoration: BoxDecoration(
+          color: secondaryColor,
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+        ),
+        child:
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text("Add New Data Project", style: Theme.of(context).textTheme.subtitle1),
+                    Spacer(),
+                    ElevatedButton.icon(
+                      style: TextButton.styleFrom(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: defaultPadding * 1.5,
+                          vertical:
+                          defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                        ),
+                      ),
+                      onPressed: () {
+                        viewModel!.addNewDataProject(newData);
+                      },
+                      icon: Icon(Icons.add),
+                      label: Text("Submit"),
+                    ),
+                  ]
+              ),
+              for (String s in viewModel!.schema.keys)
+              Expanded(
+                child: Row(
+                  children: [
+                   SizedBox(width: defaultPadding),
+                   Expanded(
+                       child: Text(s , style: Theme.of(context).textTheme.subtitle1)
+                   ),
+                    Expanded(
+                       flex: 4,
+                       child: TextField(
+                       onChanged: (text) {
+                         newData[s] = text;
+                         print(newData);
+                       },
+                       decoration: InputDecoration(
+                         hintText: viewModel!.schema[s],
+                         fillColor: secondaryColor,
+                         filled: true,
+                         border: OutlineInputBorder(
+                             borderSide: BorderSide.none,
+                             borderRadius: const BorderRadius.all(Radius.circular(10))
+                         ),
+                       ),
                      ),
                    ),
-                 ),
-               ),
-              ],
-            )
-          ],
-        )
+                  ],
+                ),
+              )
+            ],
+          )
+      ),
     );
   }
 }
