@@ -4,8 +4,8 @@ import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
 import 'package:admin/viewmodels/main_screen_viewmodel.dart';
-import 'package:admin/viewmodels/selected_data_head_viewmodel.dart';
-import 'package:admin/viewmodels/selected_data_viewmodel.dart';
+import 'package:admin/viewmodels/selected_data_head_table_viewmodel.dart';
+import 'package:admin/viewmodels/selected_data_table_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

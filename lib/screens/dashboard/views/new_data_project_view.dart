@@ -4,14 +4,14 @@ import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
 import 'package:admin/viewmodels/new_data_project_viewmodel.dart';
-import 'package:admin/viewmodels/selected_data_viewmodel.dart';
+import 'package:admin/viewmodels/selected_data_table_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../viewmodels/main_screen_viewmodel.dart';
-import '../../../viewmodels/selected_data_head_viewmodel.dart';
+import '../../../viewmodels/selected_data_head_table_viewmodel.dart';
 import '../components/header.dart';
 
 import '../components/table_view.dart';

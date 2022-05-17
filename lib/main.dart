@@ -1,12 +1,14 @@
 import 'package:admin/constants.dart';
 import 'package:admin/repositories/data_project_repository.dart';
+import 'package:admin/repositories/regex_project_repository.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/main_screen_viewmodel.dart';
 import 'package:admin/viewmodels/menu_viewmodel.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:admin/viewmodels/new_data_project_viewmodel.dart';
-import 'package:admin/viewmodels/selected_data_head_viewmodel.dart';
-import 'package:admin/viewmodels/selected_data_viewmodel.dart';
+import 'package:admin/viewmodels/regex_project_viewmodel.dart';
+import 'package:admin/viewmodels/selected_data_head_table_viewmodel.dart';
+import 'package:admin/viewmodels/selected_data_table_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -58,6 +60,11 @@ class _MyApp extends State<MyApp> {
           ),
           ChangeNotifierProvider(
               create: (context) => NewDataProjectViewModel()
+          ),
+          ChangeNotifierProvider(
+              create: (context) => RegexProjectViewModel(
+                  RegexProjectRepository()
+              )
           ),
         ],
         child: MainScreen(),
