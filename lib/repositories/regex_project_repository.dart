@@ -8,7 +8,7 @@ import '../viewmodels/regex_project_viewmodel.dart';
 class RegexProjectRepository {
   late final RemoteDataSource4DataProject remoteDataSource;
 
-  DataProjectRepository() {
+  RegexProjectRepository() {
     remoteDataSource = RemoteDataSource4DataProject();
   }
 }

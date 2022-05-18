@@ -4,12 +4,14 @@ import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
 import 'package:admin/viewmodels/main_screen_viewmodel.dart';
+import 'package:admin/viewmodels/regex_project_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_head_table_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_table_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../viewmodels/selected_regex_table_viewmodel.dart';
 import '../components/header.dart';
 
 import '../components/project_search_field.dart';
@@ -21,11 +23,9 @@ class RegexProjectView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final DataProjectViewModel viewModel = Provider.of<DataProjectViewModel>(context);
-    final SelectedDataTableViewModel selectedTableViewModel = Provider.of<SelectedDataTableViewModel>
+    final RegexProjectViewModel viewModel = Provider.of<RegexProjectViewModel>(context);
+    final SelectedRegexTableViewModel selectedTableViewModel = Provider.of<SelectedRegexTableViewModel>
       (context, listen: false);
-    final SelectedDataHeadTableViewModel selectedHeadTableViewModel =
-    Provider.of<SelectedDataHeadTableViewModel>(context, listen: false);
 
 
     return SafeArea(
@@ -56,7 +56,6 @@ class RegexProjectView extends StatelessWidget {
                         viewModel: viewModel,
                         onRowTap: (map) {
                           selectedTableViewModel.setSelectedData(map);
-                          selectedHeadTableViewModel.searchById(map['id'] as int);
                           Provider.of<MainScreenViewModel>(context, listen: false)
                               .setScreen(Screen.regexPreview);
                         },
