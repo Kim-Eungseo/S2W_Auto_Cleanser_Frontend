@@ -10,6 +10,7 @@ class SelectedRegexTableViewModel extends ChangeNotifier
 
   List<String> _tableColumnList = RegexProjectDto.getColumnList();
   List<Map<String, dynamic>> tableDataList = [];
+  String code = "";
 
   @override
   List<Map<String, dynamic>> getTableDataList() {
@@ -21,6 +22,13 @@ class SelectedRegexTableViewModel extends ChangeNotifier
 
   void setSelectedData(Map<String, dynamic> data) {
     tableDataList = <Map<String, dynamic>>[data];
+    code = tableDataList[0]["code"];
+  }
+
+  void setCode(String code) {
+    this.code = code;
+    this.tableDataList[0]["code"] = code;
+    notify();
   }
 
   void notify() {

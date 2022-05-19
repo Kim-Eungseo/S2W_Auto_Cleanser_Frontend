@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:convert';
 
+import 'package:admin/viewmodels/selected_regex_table_viewmodel.dart';
+
 class Cursor {
   Cursor(
       {this.line = 0,
@@ -44,25 +46,29 @@ class Document {
   Cursor cursor = Cursor();
   String clipboardText = '';
 
-  Future<bool> openFile(String path) async {
+  SelectedRegexTableViewModel saveCodeViewModel;
+
+  Document(this.saveCodeViewModel);
+
+  bool openFile(String code) {
     lines = <String>[''];
-    docPath = path;
-    File f = await File(docPath);
-    await f.openRead().map(utf8.decode).transform(LineSplitter()).forEach((l) {
+    var ls = LineSplitter();
+    List<String> data = ls.convert(code);
+    for (String l in data) {
       insertText(l);
       insertNewLine();
-    });
+    }
     moveCursorToStartOfDocument();
     return true;
   }
 
-  Future<bool> saveFile({String? path}) async {
-    File f = await File(path ?? docPath);
+  bool saveFile({String? path}) {
     String content = '';
     lines.forEach((l) {
       content += l + '\n';
     });
-    f.writeAsString(content);
+    // 대충 여기에 viewmodel의 code를 저장하는 부분.
+    saveCodeViewModel.setCode(content);
     return true;
   }
 
@@ -168,7 +174,12 @@ class Document {
     // handle join lines
     if (cursor.column >= l.length) {
       Cursor cur = cursor.copy();
+      if (cursor.line + 1 == lines.length) {
+        lines.removeAt(cursor.line);
+        return;
+      }
       lines[cursor.line] += lines[cursor.line + 1];
+
       moveCursorDown();
       deleteLine();
       cursor = cur;

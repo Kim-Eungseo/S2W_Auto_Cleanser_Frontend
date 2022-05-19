@@ -9,7 +9,7 @@ import 'document.dart';
 import 'highlighter.dart';
 
 class DocumentProvider extends ChangeNotifier {
-  Document doc = Document();
+  Document doc;
 
   Future<bool> openFile(String path) async {
     bool res = await doc.openFile(path);
@@ -20,6 +20,8 @@ class DocumentProvider extends ChangeNotifier {
   void touch() {
     notifyListeners();
   }
+
+  DocumentProvider(this.doc);
 }
 
 class ViewLine extends StatelessWidget {

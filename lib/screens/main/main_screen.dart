@@ -10,6 +10,7 @@ import 'package:admin/screens/dashboard/views/dashboard_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../dashboard/views/selected_regex_project_view.dart';
 import 'components/side_menu.dart';
 
 class MainScreen extends StatelessWidget {
@@ -47,7 +48,7 @@ class MainScreen extends StatelessWidget {
                     case Screen.dataPreview:
                       return SelectedDataProjectView();
                     case Screen.regexPreview:
-                      return DashboardView();
+                      return SelectedRegexProjectView();
                     case Screen.newDataProject:
                       return NewDataProjectView();
                     case Screen.newRegexProject:

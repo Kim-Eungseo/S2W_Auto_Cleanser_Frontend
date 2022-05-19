@@ -113,6 +113,7 @@ class _InputListener extends State<InputListener> {
             autofocus: true,
             onKey: (FocusNode node, RawKeyEvent event) {
               if (event.runtimeType.toString() == 'RawKeyDownEvent') {
+                print(event.logicalKey.keyLabel);
                 switch (event.logicalKey.keyLabel) {
                   case 'Home':
                     if (event.isControlPressed) {
@@ -137,6 +138,7 @@ class _InputListener extends State<InputListener> {
                     break;
                   case 'Backspace':
                     if (d.cursor.hasSelection()) {
+                      print("how");
                       d.deleteSelectedText();
                     } else {
                       d.moveCursorLeft();
