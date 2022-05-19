@@ -42,6 +42,33 @@ class DataProjectViewModel with ChangeNotifier
   @override
   List<String> get tableColumnList => _tableColumnList;
 
+  void delete(int id) async{
+    Future<bool> data = dataProjectRepository
+        .remoteDataSource
+        .deleteDataProjectById(id);
+
+    await data.then((unfuturedStatus) {
+      if (unfuturedStatus) {
+        print("delete Success!");
+      }
+    }).whenComplete(() {
+      notifyListeners();
+    });
+  }
+
+  void update(Map<String, dynamic> map) async{
+    tableDataList.remove(map);
+    
+    Future<DataProjectDto> data = dataProjectRepository
+        .remoteDataSource
+        .updateDataProjectByMap(map);
+
+    await data.then((unfuturedData) {
+      tableDataList.add(unfuturedData.toJson());
+    }).whenComplete(() {
+      notifyListeners();
+    });
+  }
 
 }
 

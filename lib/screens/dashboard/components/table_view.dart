@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:admin/models/RecentFile.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
 import 'package:data_table_2/data_table_2.dart';
@@ -7,7 +9,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../../constants.dart';
 import '../../../responsive.dart';
 
-class TableView extends StatelessWidget {
+class TableView extends StatefulWidget {
   final String? title;
   final TableViewModelInterface? viewModel;
   final void Function(Map<String, dynamic> map)? onRowTap;
@@ -26,6 +28,32 @@ class TableView extends StatelessWidget {
     this.buttonText,
     this.onButtonTap,
   }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _TableView();
+}
+
+class _TableView extends State<TableView> {
+  String? title;
+  TableViewModelInterface? viewModel;
+  void Function(Map<String, dynamic> map)? onRowTap;
+  bool? isButton;
+  IconData? buttonIcon;
+  String? buttonText;
+  void Function()? onButtonTap;
+
+  final ScrollController _scrollController = ScrollController();
+
+  void initState() {
+    this.title = widget.title;
+    this.viewModel = widget.viewModel;
+    this.onRowTap = widget.onRowTap;
+    this.isButton = widget.isButton;
+    this.buttonIcon = widget.buttonIcon;
+    this.buttonText = widget.buttonText;
+    this.onButtonTap = widget.onButtonTap;
+  }
+
 
 
   @override
@@ -64,30 +92,39 @@ class TableView extends StatelessWidget {
                   ),
              ]
           ),
-          SingleChildScrollView(
-            // scrollDirection: Axis.horizontal,
-            primary: false,
-            child: SizedBox(
-              width: double.infinity,
-              child: DataTable2(
-                columnSpacing: defaultPadding,
-                minWidth: 600,
-                columns: [
-                  for (String s in tableColumnList!)
-                    DataColumn(
-                      label: Text(
-                          s,
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    )
-                ],
-                // rows: List.generate(
-                //   demoRecentFiles.length,
-                //   (index) => recentFileDataRow(demoRecentFiles[index]),
-                // ),
-                rows: List.generate(
-                  tableDataList!.length,
-                      (index) => returnTableData(tableDataList[index], tableColumnList),
+          Scrollbar(
+            isAlwaysShown: true,
+            controller: _scrollController,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              controller: _scrollController,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                primary: false,
+                child: SizedBox(
+                  width: viewModel!.tableColumnList.length * 300.0,
+                  child: DataTable2(
+                    dataRowHeight: 60,
+                    columnSpacing: defaultPadding,
+                    minWidth: viewModel!.tableColumnList.length * 300.0,
+                    columns: [
+                      for (String s in tableColumnList!)
+                        DataColumn(
+                          label: Text(
+                              s,
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        )
+                    ],
+                    // rows: List.generate(
+                    //   demoRecentFiles.length,
+                    //   (index) => recentFileDataRow(demoRecentFiles[index]),
+                    // ),
+                    rows: List.generate(
+                      tableDataList!.length,
+                          (index) => returnTableData(tableDataList[index], tableColumnList),
+                    ),
+                  ),
                 ),
               ),
             ),

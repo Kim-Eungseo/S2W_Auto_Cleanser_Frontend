@@ -5,6 +5,7 @@ import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dar
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
 import 'package:admin/viewmodels/selected_data_table_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -62,6 +63,37 @@ class SelectedDataProjectView extends StatelessWidget {
                             label: Text("Go back to search"),
                           ),
                           Spacer(),
+                          ElevatedButton.icon(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: defaultPadding * 1.5,
+                                vertical:
+                                defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                              ),
+                            ),
+                            onPressed: () {
+                              viewModel.tableDataList.remove(dataPreviewModel.tableDataList[0]);
+                              viewModel.delete(dataPreviewModel.tableDataList[0]['id'] as int);
+                              Provider.of<MainScreenViewModel>(context, listen: false)
+                                  .setScreen(Screen.data);
+                            },
+                            icon: Icon(Icons.delete), label: Text("delete"),
+                          ),
+                          SizedBox(width: defaultPadding),
+                          ElevatedButton.icon(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: defaultPadding * 1.5,
+                                vertical:
+                                defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                              ),
+                            ),
+                            onPressed: () {
+                              Provider.of<MainScreenViewModel>(context, listen: false)
+                                  .setScreen(Screen.data);
+                            },
+                            icon: Icon(Icons.update), label: Text("update"),
+                          ),
                         ],
                       ),
                       SizedBox(height: defaultPadding),

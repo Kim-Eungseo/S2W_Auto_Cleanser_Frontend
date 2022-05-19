@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class MainScreenViewModel extends ChangeNotifier {
   // 메인 대시보드에 뭐가 보일 지 정하게 하는 state
-  Screen dashboardScreen = Screen.regex;
+  Screen dashboardScreen = Screen.data;
 
   void setScreen(Screen screen) {
     dashboardScreen = screen;

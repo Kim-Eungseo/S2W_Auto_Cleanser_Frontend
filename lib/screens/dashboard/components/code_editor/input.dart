@@ -112,6 +112,13 @@ class _InputListener extends State<InputListener> {
             focusNode: focusNode,
             autofocus: true,
             onKey: (FocusNode node, RawKeyEvent event) {
+              var ctrlPressed = event.isKeyPressed(LogicalKeyboardKey.control) ||
+                  event.logicalKey.keyLabel.contains(RegExp(r'(control|meta|Control|Meta)'));
+              var isA = event.logicalKey == LogicalKeyboardKey.keyA;
+              var isC = event.logicalKey == LogicalKeyboardKey.keyC;
+              var isV = event.logicalKey == LogicalKeyboardKey.keyV;
+              var isX = event.logicalKey == LogicalKeyboardKey.keyX;
+
               if (event.runtimeType.toString() == 'RawKeyDownEvent') {
                 print(event.logicalKey.keyLabel);
                 switch (event.logicalKey.keyLabel) {
@@ -166,17 +173,51 @@ class _InputListener extends State<InputListener> {
                     break;
                   default:
                     {
+                      // //select all
+                      // if (ctrlPressed && isA) {
+                      //   d.command('ctrl+a');
+                      // }
+
+                      //copy
+                      if ((event.isControlPressed || event.isMetaPressed) && isC) {
+                        d.command('ctrl+c');
+                        print("ctrlc");
+
+                        break;
+                      }
+
+                      //paste
+                      if ((event.isControlPressed || event.isMetaPressed) && isV) {
+                        d.command('ctrl+v');
+                        print("ctrlv");
+
+                        break;
+                      }
+
+                      ///cut
+                      if ((event.isControlPressed || event.isMetaPressed) && isX) {
+                        d.command('ctrl+x');
+                        print("ctrlx");
+                        break;
+                      }
+
+                      /// from here
                       int k = event.logicalKey.keyId;
-                      if ((k >= LogicalKeyboardKey.keyA.keyId &&
+                      if (event.isShiftPressed && (k >= LogicalKeyboardKey.keyA.keyId &&
                               k <= LogicalKeyboardKey.keyZ.keyId) ||
+                          (k + 32 >= LogicalKeyboardKey.keyA.keyId &&
+                              k + 32 <= LogicalKeyboardKey.keyZ.keyId )) {
+                        String ch = String.fromCharCode(
+                            65 + k - LogicalKeyboardKey.keyA.keyId);
+                        d.insertText(ch);
+                        break;
+                      }
+                      if ((k >= LogicalKeyboardKey.keyA.keyId &&
+                          k <= LogicalKeyboardKey.keyZ.keyId) ||
                           (k + 32 >= LogicalKeyboardKey.keyA.keyId &&
                               k + 32 <= LogicalKeyboardKey.keyZ.keyId)) {
                         String ch = String.fromCharCode(
                             97 + k - LogicalKeyboardKey.keyA.keyId);
-                        if (event.isControlPressed) {
-                          d.command('ctrl+$ch');
-                          break;
-                        }
                         d.insertText(ch);
                         break;
                       }

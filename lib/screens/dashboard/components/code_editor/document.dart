@@ -276,9 +276,6 @@ class Document {
       case 'ctrl+v':
         insertText(clipboardText);
         break;
-      case 'ctrl+s':
-        saveFile();
-        break;
     }
   }
 }

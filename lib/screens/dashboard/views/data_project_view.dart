@@ -55,8 +55,8 @@ class DataProjectView extends StatelessWidget {
                         title: "Projects",
                         viewModel: viewModel,
                         onRowTap: (map) {
-                          selectedTableViewModel.setSelectedData(map);
                           selectedHeadTableViewModel.searchById(map['id'] as int);
+                          selectedTableViewModel.setSelectedData(map);
                           Provider.of<MainScreenViewModel>(context, listen: false)
                           .setScreen(Screen.dataPreview);
                         },

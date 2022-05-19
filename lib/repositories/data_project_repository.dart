@@ -33,4 +33,36 @@ class RemoteDataSource4DataProject {
       throw Exception("Error on server");
     }
   }
+
+  Future<bool> deleteDataProjectById(int id) async {
+    String uri = "http://localhost:8000/v1/project/delete?id_=" + id.toString();
+    final res = await http.delete(Uri.parse(uri));
+    if (res.statusCode == 200) {
+      if (res.body == 'true'){
+        print("Yeaaaaaaaaaah");
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      throw Exception("Error on server");
+    }
+  }
+
+  Future<DataProjectDto> updateDataProjectByMap(Map<String, dynamic> map) async {
+    String uri = "http://localhost:8000/v1/project/update";
+    final res = await http.post(
+      Uri.parse(uri),
+      headers: <String, String> {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: map as Map<String, String>
+    );
+    if (res.statusCode == 200) {
+      final data = DataProjectDto.fromJson(json.decode(res.body)) ;
+      return data;
+    } else {
+      throw Exception("Error on server");
+    }
+  }
 }
