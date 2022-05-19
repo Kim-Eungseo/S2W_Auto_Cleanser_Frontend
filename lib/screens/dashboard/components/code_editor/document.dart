@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:convert';
+import 'package:flutter/services.dart';
 
 import 'package:admin/viewmodels/selected_regex_table_viewmodel.dart';
 
@@ -149,6 +150,15 @@ class Document {
     insertText('\n');
   }
 
+  void insertMultiText(String text) {
+    var ls = LineSplitter();
+    List<String> data = ls.convert(text);
+    for (String l in data) {
+      insertText(l);
+      insertNewLine();
+    }
+  }
+
   void insertText(String text) {
     deleteSelectedText();
     String l = lines[cursor.line];
@@ -195,7 +205,8 @@ class Document {
     if (lines.length > 1 && (left + right).length == 0) {
       lines.removeAt(cur.line);
       moveCursorUp();
-      moveCursorToStartOfLine();
+      // moveCursorToStartOfLine();
+      moveCursorToEndOfLine();
       return;
     }
 
@@ -267,14 +278,18 @@ class Document {
   void command(String cmd) {
     switch (cmd) {
       case 'ctrl+c':
-        clipboardText = selectedText();
+        // clipboardText = selectedText();
+        Clipboard.setData(ClipboardData(text: selectedText()));
         break;
       case 'ctrl+x':
-        clipboardText = selectedText();
+        // clipboardText = selectedText();
+        Clipboard.setData(ClipboardData(text: selectedText()));
         deleteSelectedText();
         break;
       case 'ctrl+v':
-        insertText(clipboardText);
+        Clipboard.getData("text/plain").then((data) {
+          insertMultiText(data!.text ?? "");
+        });
         break;
     }
   }

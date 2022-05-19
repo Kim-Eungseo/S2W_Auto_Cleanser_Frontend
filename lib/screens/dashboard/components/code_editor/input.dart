@@ -182,7 +182,6 @@ class _InputListener extends State<InputListener> {
                       if ((event.isControlPressed || event.isMetaPressed) && isC) {
                         d.command('ctrl+c');
                         print("ctrlc");
-
                         break;
                       }
 
@@ -190,7 +189,6 @@ class _InputListener extends State<InputListener> {
                       if ((event.isControlPressed || event.isMetaPressed) && isV) {
                         d.command('ctrl+v');
                         print("ctrlv");
-
                         break;
                       }
 
