@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 
 import 'package:admin/viewmodels/selected_regex_table_viewmodel.dart';
 
+import '../../../../viewmodels/interfaces/codable_viewmodel_interface.dart';
+
 class Cursor {
   Cursor(
       {this.line = 0,
@@ -47,7 +49,7 @@ class Document {
   Cursor cursor = Cursor();
   String clipboardText = '';
 
-  SelectedRegexTableViewModel saveCodeViewModel;
+  CodableViewmodelInterface saveCodeViewModel;
 
   Document(this.saveCodeViewModel);
 
@@ -181,6 +183,10 @@ class Document {
   }
 
   void deleteText({int numberOfCharacters = 1}) {
+    if (cursor.line == 0 && cursor.column == 0 && lines.length == 1) {
+      return;
+    }
+
     String l = lines[cursor.line];
 
     // handle join lines

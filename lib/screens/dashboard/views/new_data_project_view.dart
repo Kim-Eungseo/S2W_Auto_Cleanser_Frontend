@@ -15,7 +15,7 @@ import '../../../viewmodels/selected_data_head_table_viewmodel.dart';
 import '../components/header.dart';
 
 import '../components/table_view.dart';
-import '../components/storage_details.dart';
+import '../components/server_details.dart';
 import '../components/text_search_field.dart';
 
 class NewDataProjectView extends StatefulWidget {
@@ -84,7 +84,7 @@ class _NewDataProjectView extends State<NewDataProjectView> {
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
-                        StorageDetails(),
+                        ServerDetails(),
                     ],
                   ),
                 ),
@@ -94,7 +94,7 @@ class _NewDataProjectView extends State<NewDataProjectView> {
                 if (!Responsive.isMobile(context))
                   Expanded(
                     flex: 2,
-                    child: StorageDetails(),
+                    child: ServerDetails(),
                   ),
               ],
             )
@@ -155,7 +155,11 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
                         ),
                       ),
                       onPressed: () {
+                        print("onpressed");
                         viewModel!.addNewDataProject(newData);
+
+                        Provider.of<MainScreenViewModel>(context, listen: false)
+                            .setScreen(Screen.data);
                       },
                       icon: Icon(Icons.add),
                       label: Text("Submit"),
@@ -173,19 +177,20 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
                     Expanded(
                        flex: 4,
                        child: TextField(
-                       onChanged: (text) {
-                         newData[s] = text;
-                         print(newData);
-                       },
-                       decoration: InputDecoration(
-                         hintText: viewModel!.schema[s],
-                         fillColor: secondaryColor,
-                         filled: true,
-                         border: OutlineInputBorder(
-                             borderSide: BorderSide.none,
-                             borderRadius: const BorderRadius.all(Radius.circular(10))
+                         keyboardType: TextInputType.multiline,
+                         maxLines: null,
+                         onChanged: (text) {
+                           newData[s] = text;
+                         },
+                         decoration: InputDecoration(
+                           hintText: viewModel!.schema[s],
+                           fillColor: secondaryColor,
+                           filled: true,
+                           border: OutlineInputBorder(
+                               borderSide: BorderSide.none,
+                               borderRadius: const BorderRadius.all(Radius.circular(10))
+                           ),
                          ),
-                       ),
                      ),
                    ),
                   ],

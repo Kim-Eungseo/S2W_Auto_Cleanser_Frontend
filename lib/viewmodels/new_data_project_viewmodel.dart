@@ -7,10 +7,11 @@ class NewDataProjectViewModel extends ChangeNotifier {
   Map<String, String> schema = {
     "name": "project name",
     "author": "writer name or team name",
-    "file_text": "put the table data text on here"
+    "file_text": "put the table data text on here, make sure that data shapes like table"
   };
 
   void addNewDataProject(Map<String, String> data) {
-    dataProjectRepository.remoteDataSource.toString();
+    print(data.toString());
+    dataProjectRepository.remoteDataSource.newDataProjectByMap(data);
   }
 }

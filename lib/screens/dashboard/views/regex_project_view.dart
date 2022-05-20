@@ -16,7 +16,7 @@ import '../components/header.dart';
 
 import '../components/project_search_field.dart';
 import '../components/table_view.dart';
-import '../components/storage_details.dart';
+import '../components/server_details.dart';
 import '../components/text_search_field.dart';
 
 class RegexProjectView extends StatelessWidget {
@@ -61,12 +61,12 @@ class RegexProjectView extends StatelessWidget {
                         },
                         isButton: true,
                         onButtonTap: () {Provider.of<MainScreenViewModel>(context, listen: false)
-                            .setScreen(Screen.newDataProject);},
+                            .setScreen(Screen.newRegexProject);},
                       ),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
-                        StorageDetails(),
+                        ServerDetails(),
                     ],
                   ),
                 ),
@@ -76,7 +76,7 @@ class RegexProjectView extends StatelessWidget {
                 if (!Responsive.isMobile(context))
                   Expanded(
                     flex: 2,
-                    child: StorageDetails(),
+                    child: ServerDetails(),
                   ),
               ],
             )

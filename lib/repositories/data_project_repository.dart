@@ -54,9 +54,27 @@ class RemoteDataSource4DataProject {
     final res = await http.post(
       Uri.parse(uri),
       headers: <String, String> {
-        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Type': 'application/json',
       },
       body: map as Map<String, String>
+    );
+    if (res.statusCode == 200) {
+      final data = DataProjectDto.fromJson(json.decode(res.body)) ;
+      return data;
+    } else {
+      throw Exception("Error on server");
+    }
+  }
+
+  Future<DataProjectDto> newDataProjectByMap(Map<String, dynamic> map) async {
+    print(map.toString());
+    String uri = "http://localhost:8000/v1/project/new";
+    final res = await http.post(
+        Uri.parse(uri),
+        headers: <String, String> {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(map as Map<String, String>)
     );
     if (res.statusCode == 200) {
       final data = DataProjectDto.fromJson(json.decode(res.body)) ;

@@ -4,9 +4,9 @@ import '../../../constants.dart';
 import 'chart.dart';
 import 'storage_info_card.dart';
 
-class StorageDetails extends StatelessWidget {
+class ServerDetails extends StatelessWidget {
 
-  const StorageDetails({
+  const ServerDetails({
     Key? key,
   }) : super(key: key);
 
@@ -22,7 +22,7 @@ class StorageDetails extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Storage Details",
+            "Server Details",
             style: TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w500,
@@ -30,25 +30,25 @@ class StorageDetails extends StatelessWidget {
           ),
           SizedBox(height: defaultPadding),
           Chart(),
-          StorageInfoCard(
+          ServerInfoCard(
             svgSrc: "assets/icons/Documents.svg",
             title: "Documents Files",
             amountOfFiles: "1.3GB",
             numOfFiles: 1328,
           ),
-          StorageInfoCard(
+          ServerInfoCard(
             svgSrc: "assets/icons/media.svg",
             title: "Media Files",
             amountOfFiles: "15.3GB",
             numOfFiles: 1328,
           ),
-          StorageInfoCard(
+          ServerInfoCard(
             svgSrc: "assets/icons/folder.svg",
             title: "Other Files",
             amountOfFiles: "1.3GB",
             numOfFiles: 1328,
           ),
-          StorageInfoCard(
+          ServerInfoCard(
             svgSrc: "assets/icons/unknown.svg",
             title: "Unknown",
             amountOfFiles: "1.3GB",

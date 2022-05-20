@@ -62,8 +62,6 @@ class RegexProjectViewModel with ChangeNotifier
 
     await data.then((unfuturedData) {
       Map<String, dynamic> response = unfuturedData.toJson();
-      response["id"] = map["id"];
-      response["timestamp"] = map["timestamp"];
 
       tableDataList.add(response);
     }).whenComplete(() {

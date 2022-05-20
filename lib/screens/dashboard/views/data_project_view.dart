@@ -14,7 +14,7 @@ import '../components/header.dart';
 
 import '../components/project_search_field.dart';
 import '../components/table_view.dart';
-import '../components/storage_details.dart';
+import '../components/server_details.dart';
 import '../components/text_search_field.dart';
 
 class DataProjectView extends StatelessWidget {
@@ -67,7 +67,7 @@ class DataProjectView extends StatelessWidget {
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
-                        StorageDetails(),
+                        ServerDetails(),
                     ],
                   ),
                 ),
@@ -77,7 +77,7 @@ class DataProjectView extends StatelessWidget {
                 if (!Responsive.isMobile(context))
                   Expanded(
                     flex: 2,
-                    child: StorageDetails(),
+                    child: ServerDetails(),
                   ),
               ],
             )

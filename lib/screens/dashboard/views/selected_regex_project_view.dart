@@ -16,7 +16,7 @@ import '../components/code_editor/editor.dart';
 import '../components/header.dart';
 
 import '../components/table_view.dart';
-import '../components/storage_details.dart';
+import '../components/server_details.dart';
 import '../components/text_search_field.dart';
 
 class SelectedRegexProjectView extends StatelessWidget {
@@ -109,11 +109,11 @@ class SelectedRegexProjectView extends StatelessWidget {
                             );
                           }),
                       SizedBox(height: defaultPadding),
-                      Editor(),
+                      Editor(codableViewmodel: Provider.of<SelectedRegexTableViewModel>(context, listen: false),),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
-                        StorageDetails(),
+                        ServerDetails(),
                     ],
                   ),
                 ),
@@ -123,7 +123,7 @@ class SelectedRegexProjectView extends StatelessWidget {
                 if (!Responsive.isMobile(context))
                   Expanded(
                     flex: 2,
-                    child: StorageDetails(),
+                    child: ServerDetails(),
                   ),
               ],
             )

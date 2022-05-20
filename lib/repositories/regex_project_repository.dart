@@ -8,14 +8,33 @@ import '../viewmodels/regex_project_viewmodel.dart';
 
 
 class RegexProjectRepository {
-  late final RemoteDataSource4DataProject remoteDataSource;
+  late final RemoteDataSource4RegexProject remoteDataSource;
 
   RegexProjectRepository() {
-    remoteDataSource = RemoteDataSource4DataProject();
+    remoteDataSource = RemoteDataSource4RegexProject();
   }
 }
 
-class RemoteDataSource4DataProject {
+class RemoteDataSource4RegexProject {
+
+  Future<RegexProjectDto> newRegexProjectByMap(Map<String, String> map) async {
+    print(map.toString());
+    String uri = "http://localhost:8000/v1/regex/new";
+    final res = await http.post(
+        Uri.parse(uri),
+        headers: <String, String> {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(map)
+    );
+    if (res.statusCode == 200) {
+      final data = RegexProjectDto.fromJson(json.decode(res.body)) ;
+      return data;
+    } else {
+      throw Exception("Error on server");
+    }
+  }
+
   Future<List<RegexProjectDto>> getRegexProjectByName(String name) async {
     String uri = "http://localhost:8000/v1/regex/?name=" + name;
     final res = await http.get(Uri.parse(uri));

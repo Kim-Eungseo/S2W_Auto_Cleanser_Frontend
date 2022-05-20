@@ -54,8 +54,6 @@ class _TableView extends State<TableView> {
     this.onButtonTap = widget.onButtonTap;
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     List<String>? tableColumnList = viewModel?.tableColumnList;

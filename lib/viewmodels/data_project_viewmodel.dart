@@ -69,7 +69,6 @@ class DataProjectViewModel with ChangeNotifier
       notifyListeners();
     });
   }
-
 }
 
 @JsonSerializable()

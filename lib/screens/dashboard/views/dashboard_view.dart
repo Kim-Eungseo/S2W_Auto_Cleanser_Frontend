@@ -6,7 +6,7 @@ import '../../../constants.dart';
 import '../components/header.dart';
 
 import '../components/table_view.dart';
-import '../components/storage_details.dart';
+import '../components/server_details.dart';
 
 class DashboardView extends StatelessWidget {
   @override
@@ -34,7 +34,7 @@ class DashboardView extends StatelessWidget {
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
-                        StorageDetails(),
+                        ServerDetails(),
                     ],
                   ),
                 ),
@@ -44,7 +44,7 @@ class DashboardView extends StatelessWidget {
                 if (!Responsive.isMobile(context))
                   Expanded(
                     flex: 2,
-                    child: StorageDetails(),
+                    child: ServerDetails(),
                   ),
               ],
             )

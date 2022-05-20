@@ -53,7 +53,7 @@ class Highlighter {
             '\\b(if|else|elif|endif|define)\\b'] =
         function;
     colorMap[
-            '\\b(:|int|float|while|private|char|typedef|for|10|unsigned|long|static|protected|bool|if|public|friend|do|void|enum|else|break|double|try|this|switch|continue|del|override|new|throw|return|and|not|or)\\b'] =
+            '\\b(str|int|float|while|private|char|typedef|for|10|unsigned|long|static|protected|bool|if|public|friend|do|void|enum|else|break|double|try|this|switch|continue|del|override|new|throw|return|and|not|or)\\b'] =
         keyword;
   }
 

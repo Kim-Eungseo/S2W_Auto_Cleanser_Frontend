@@ -1,12 +1,12 @@
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
+import 'package:admin/viewmodels/interfaces/codable_viewmodel_interface.dart';
 import 'package:admin/viewmodels/regex_project_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:provider/provider.dart';
 
 import 'interfaces/table_viewmodel_interface.dart';
 
 class SelectedRegexTableViewModel extends ChangeNotifier
-    implements TableViewModelInterface{
+    implements TableViewModelInterface, CodableViewmodelInterface{
 
   List<String> _tableColumnList = RegexProjectDto.getColumnList();
   List<Map<String, dynamic>> tableDataList = [];

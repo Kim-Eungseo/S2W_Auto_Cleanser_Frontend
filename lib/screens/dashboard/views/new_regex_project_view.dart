@@ -1,4 +1,5 @@
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/dashboard/components/code_editor/editor.dart';
 import 'package:admin/screens/dashboard/components/my_regex.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
@@ -11,11 +12,13 @@ import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../viewmodels/main_screen_viewmodel.dart';
+import '../../../viewmodels/new_regex_project_viewmodel.dart';
 import '../../../viewmodels/selected_data_head_table_viewmodel.dart';
+import '../../../viewmodels/selected_regex_table_viewmodel.dart';
 import '../components/header.dart';
 
 import '../components/table_view.dart';
-import '../components/storage_details.dart';
+import '../components/server_details.dart';
 import '../components/text_search_field.dart';
 
 class NewRegexProjectView extends StatefulWidget {
@@ -39,8 +42,8 @@ class _NewRegexProjectView extends State<NewRegexProjectView> {
 
   @override
   Widget build(BuildContext context) {
-    final NewDataProjectViewModel viewModel
-    = Provider.of<NewDataProjectViewModel>(context);
+    final NewRegexProjectViewModel viewModel
+    = Provider.of<NewRegexProjectViewModel>(context);
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -69,7 +72,7 @@ class _NewRegexProjectView extends State<NewRegexProjectView> {
                             ),
                             onPressed: () {
                               Provider.of<MainScreenViewModel>(context, listen: false)
-                                  .setScreen(Screen.data);
+                                  .setScreen(Screen.regex);
                             },
                             icon: Icon(Icons.arrow_back),
                             label: Text("Go back to search"),
@@ -78,11 +81,13 @@ class _NewRegexProjectView extends State<NewRegexProjectView> {
                         ],
                       ),
                       SizedBox(height: defaultPadding),
-                      NewProjectContainerView(viewModel),
+                      NewRegexProjectContainerView(viewModel),
+                      SizedBox(height: defaultPadding),
+                      Editor(codableViewmodel: Provider.of<NewRegexProjectViewModel>(context, listen: false),),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
-                        StorageDetails(),
+                        ServerDetails(),
                     ],
                   ),
                 ),
@@ -92,7 +97,7 @@ class _NewRegexProjectView extends State<NewRegexProjectView> {
                 if (!Responsive.isMobile(context))
                   Expanded(
                     flex: 2,
-                    child: StorageDetails(),
+                    child: ServerDetails(),
                   ),
               ],
             )
@@ -103,18 +108,18 @@ class _NewRegexProjectView extends State<NewRegexProjectView> {
   }
 }
 
-class NewProjectContainerView extends StatefulWidget {
-  final NewDataProjectViewModel viewModel;
-  NewProjectContainerView(this.viewModel);
+class NewRegexProjectContainerView extends StatefulWidget {
+  final NewRegexProjectViewModel viewModel;
+  NewRegexProjectContainerView(this.viewModel);
 
   @override
   State<StatefulWidget> createState() => _NewProjectContainerView();
 
 }
 
-class _NewProjectContainerView extends State<NewProjectContainerView> {
+class _NewProjectContainerView extends State<NewRegexProjectContainerView> {
 
-  NewDataProjectViewModel? viewModel;
+  NewRegexProjectViewModel? viewModel;
   Map<String, String> newData = {};
 
   @override
@@ -142,7 +147,7 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
               Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Add New Data Project", style: Theme.of(context).textTheme.subtitle1),
+                    Text("Add New Regex Project", style: Theme.of(context).textTheme.subtitle1),
                     Spacer(),
                     ElevatedButton.icon(
                       style: TextButton.styleFrom(
@@ -153,7 +158,9 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
                         ),
                       ),
                       onPressed: () {
-                        viewModel!.addNewDataProject(newData);
+                        viewModel!.addNewRegexProject(newData);
+                        Provider.of<MainScreenViewModel>(context, listen: false)
+                            .setScreen(Screen.regex);
                       },
                       icon: Icon(Icons.add),
                       label: Text("Submit"),
@@ -173,7 +180,6 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
                         child: TextField(
                           onChanged: (text) {
                             newData[s] = text;
-                            print(newData);
                           },
                           decoration: InputDecoration(
                             hintText: viewModel!.schema[s],

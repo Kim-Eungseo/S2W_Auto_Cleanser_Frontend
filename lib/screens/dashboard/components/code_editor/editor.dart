@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:admin/viewmodels/interfaces/codable_viewmodel_interface.dart';
 import 'package:admin/viewmodels/selected_regex_table_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,7 +11,8 @@ import 'input.dart';
 import 'highlighter.dart';
 
 class Editor extends StatefulWidget {
-  Editor({Key? key,}) : super(key: key);
+  final CodableViewmodelInterface? codableViewmodel;
+  Editor({Key? key, this.codableViewmodel}) : super(key: key);
   @override
   _Editor createState() => _Editor();
 }
@@ -20,9 +22,9 @@ class _Editor extends State<Editor> {
   @override
   void initState() {
     doc = DocumentProvider(
-        Document(Provider.of<SelectedRegexTableViewModel>(context, listen: false))
+        Document(widget.codableViewmodel!)
     );
-    doc.openFile(Provider.of<SelectedRegexTableViewModel>(context, listen: false).code);
+    doc.openFile(widget.codableViewmodel!.code);
     super.initState();
   }
 
