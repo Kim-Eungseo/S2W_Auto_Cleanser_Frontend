@@ -45,7 +45,7 @@ Offset screenToCursor(RenderObject? obj, Offset pos) {
       fontCharSize = getTextExtents(' ', span.style ?? TextStyle());
     }
 
-    String txt = (span as TextSpan).text ?? '';
+    String txt = (span).text ?? '';
     for (int i = 0; i < txt.length; i++) {
       Offset offsetForCaret = targetPar.localToGlobal(targetPar
           .getOffsetForCaret(TextPosition(offset: textOffset), bounds));
@@ -219,6 +219,7 @@ class _InputListener extends State<InputListener> {
                         d.insertText(ch);
                         break;
                       }
+
                     }
                     if (event.logicalKey.keyLabel.length == 1) {
                       d.insertText(event.logicalKey.keyLabel);
@@ -228,6 +229,7 @@ class _InputListener extends State<InputListener> {
                 }
                 doc.touch();
               }
+              d.saveFile();
               if (event.runtimeType.toString() == 'RawKeyUpEvent') {}
               return KeyEventResult.handled;
             }),

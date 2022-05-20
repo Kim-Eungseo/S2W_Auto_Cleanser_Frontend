@@ -54,6 +54,7 @@ class Document {
   bool openFile(String code) {
     lines = <String>[''];
     var ls = LineSplitter();
+    code = code.replaceAll("\t", "    ");
     List<String> data = ls.convert(code);
     for (String l in data) {
       insertText(l);
@@ -63,12 +64,13 @@ class Document {
     return true;
   }
 
-  bool saveFile({String? path}) {
+  bool saveFile() {
     String content = '';
     lines.forEach((l) {
       content += l + '\n';
     });
     // 대충 여기에 viewmodel의 code를 저장하는 부분.
+    content = content.replaceAll("    ", "\t");
     saveCodeViewModel.setCode(content);
     return true;
   }

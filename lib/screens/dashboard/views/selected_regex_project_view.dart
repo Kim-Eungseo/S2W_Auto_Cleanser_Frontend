@@ -28,7 +28,7 @@ class SelectedRegexProjectView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RegexProjectViewModel viewModel = Provider.of<RegexProjectViewModel>(context);
-    final TableViewModelInterface regexPreviewModel = Provider.of<SelectedRegexTableViewModel>(context);
+    final SelectedRegexTableViewModel regexPreviewModel = Provider.of<SelectedRegexTableViewModel>(context);
 
 
     return SafeArea(
@@ -64,13 +64,47 @@ class SelectedRegexProjectView extends StatelessWidget {
                             label: Text("Go back to search"),
                           ),
                           Spacer(),
+                          ElevatedButton.icon(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: defaultPadding * 1.5,
+                                vertical:
+                                defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                              ),
+                            ),
+                            onPressed: () {
+                              viewModel.tableDataList.remove(regexPreviewModel.tableDataList[0]);
+                              viewModel.delete(regexPreviewModel.tableDataList[0]['id'] as int);
+                              Provider.of<MainScreenViewModel>(context, listen: false)
+                                  .setScreen(Screen.regex);
+                            },
+                            icon: Icon(Icons.delete), label: Text("delete"),
+                          ),
+                          SizedBox(width: defaultPadding),
+
+                          ElevatedButton.icon(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: defaultPadding * 1.5,
+                                vertical:
+                                defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                              ),
+                            ),
+                            onPressed: () {
+                              viewModel.tableDataList.remove(regexPreviewModel.tableDataList[0]);
+                              viewModel.update(regexPreviewModel.tableDataList[0]);
+                              Provider.of<MainScreenViewModel>(context, listen: false)
+                                  .setScreen(Screen.regex);
+                            },
+                            icon: Icon(Icons.update), label: Text("update"),
+                          ),
                         ],
                       ),
                       SizedBox(height: defaultPadding),
                       Consumer<MainScreenViewModel>(
                           builder: (context, mainScreen, child) {
                             return TableView(
-                              title: "Project Info",
+                              title: "Regex Info",
                               viewModel: regexPreviewModel,
                             );
                           }),

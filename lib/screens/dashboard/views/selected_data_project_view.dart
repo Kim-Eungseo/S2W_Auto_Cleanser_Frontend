@@ -80,20 +80,20 @@ class SelectedDataProjectView extends StatelessWidget {
                             icon: Icon(Icons.delete), label: Text("delete"),
                           ),
                           SizedBox(width: defaultPadding),
-                          ElevatedButton.icon(
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: defaultPadding * 1.5,
-                                vertical:
-                                defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
-                              ),
-                            ),
-                            onPressed: () {
-                              Provider.of<MainScreenViewModel>(context, listen: false)
-                                  .setScreen(Screen.data);
-                            },
-                            icon: Icon(Icons.update), label: Text("update"),
-                          ),
+                          // ElevatedButton.icon(
+                          //   style: TextButton.styleFrom(
+                          //     padding: EdgeInsets.symmetric(
+                          //       horizontal: defaultPadding * 1.5,
+                          //       vertical:
+                          //       defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                          //     ),
+                          //   ),
+                          //   onPressed: () {
+                          //     Provider.of<MainScreenViewModel>(context, listen: false)
+                          //         .setScreen(Screen.data);
+                          //   },
+                          //   icon: Icon(Icons.update), label: Text("update"),
+                          // ),
                         ],
                       ),
                       SizedBox(height: defaultPadding),

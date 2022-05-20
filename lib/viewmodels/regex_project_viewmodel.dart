@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:admin/repositories/data_project_repository.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
@@ -31,6 +33,39 @@ class RegexProjectViewModel with ChangeNotifier
 
     await data.then((unfuturedDataList) {
       tableDataList = [for (RegexProjectDto d in unfuturedDataList) d.toJson()];
+    }).whenComplete(() {
+      notifyListeners();
+    });
+  }
+
+  void delete(int id) async{
+    Future<bool> data = regexProjectRepository
+        .remoteDataSource
+        .deleteRegexProjectById(id);
+
+    await data.then((unfuturedStatus) {
+      if (unfuturedStatus) {
+        print("delete Success!");
+      }
+    }).whenComplete(() {
+      notifyListeners();
+    });
+  }
+
+  void update(Map<String, dynamic> map) async{
+
+    tableDataList.remove(map);
+
+    Future<RegexProjectDto> data = regexProjectRepository
+        .remoteDataSource
+        .updateRegexProjectByMap(map);
+
+    await data.then((unfuturedData) {
+      Map<String, dynamic> response = unfuturedData.toJson();
+      response["id"] = map["id"];
+      response["timestamp"] = map["timestamp"];
+
+      tableDataList.add(response);
     }).whenComplete(() {
       notifyListeners();
     });
