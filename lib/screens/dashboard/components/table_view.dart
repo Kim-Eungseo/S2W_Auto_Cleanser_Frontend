@@ -78,6 +78,7 @@ class _TableView extends State<TableView> {
                 if (this.isButton ?? false)
                   ElevatedButton.icon(
                     style: TextButton.styleFrom(
+
                       padding: EdgeInsets.symmetric(
                         horizontal: defaultPadding * 1.5,
                         vertical:
@@ -101,6 +102,7 @@ class _TableView extends State<TableView> {
                 primary: false,
                 child: SizedBox(
                   width: viewModel!.tableColumnList.length * 300.0,
+                  height: viewModel!.tableDataList.length * 60 >= 60 ? viewModel!.tableDataList.length * 60 + 100: 100,
                   child: DataTable2(
                     dataRowHeight: 60,
                     columnSpacing: defaultPadding,

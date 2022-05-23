@@ -1,5 +1,5 @@
 import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/components/my_regex.dart';
+import 'package:admin/screens/dashboard/components/my_projects.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
@@ -79,7 +79,7 @@ class SelectedDataProjectView extends StatelessWidget {
                             },
                             icon: Icon(Icons.delete), label: Text("delete"),
                           ),
-                          SizedBox(width: defaultPadding),
+                          // SizedBox(width: defaultPadding),
                           // ElevatedButton.icon(
                           //   style: TextButton.styleFrom(
                           //     padding: EdgeInsets.symmetric(
@@ -107,6 +107,39 @@ class SelectedDataProjectView extends StatelessWidget {
                       SizedBox(height: defaultPadding),
                       TableView(
                         title: "Data preview for 5 rows",
+                        viewModel: dataTablePreviewModel,
+                      ),
+                      SizedBox(height: defaultPadding),
+                      Divider(),
+                      SizedBox(height: defaultPadding),
+                      // we need data cleansing process here
+                      Row(
+                        children: [
+                          Text(
+                            "Add Cleansing Process",
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
+                          Spacer(),
+                          ElevatedButton.icon(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: defaultPadding * 1.5,
+                                vertical:
+                                defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                              ),
+                            ),
+                            onPressed: () {
+                              viewModel.tableDataList.remove(dataPreviewModel.tableDataList[0]);
+                              viewModel.delete(dataPreviewModel.tableDataList[0]['id'] as int);
+                              Provider.of<MainScreenViewModel>(context, listen: false)
+                                  .setScreen(Screen.data);
+                            },
+                            icon: Icon(Icons.image_search_rounded), label: Text("Auto-Detection"),
+                          ),
+                        ],
+                      ),
+                      TableView(
+                        title: "Detected Regexes",
                         viewModel: dataTablePreviewModel,
                       ),
                       if (Responsive.isMobile(context))

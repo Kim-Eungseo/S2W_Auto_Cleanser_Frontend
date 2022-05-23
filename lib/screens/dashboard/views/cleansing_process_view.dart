@@ -1,14 +1,12 @@
-import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/components/my_projects.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import '../../../constants.dart';
+import '../../../responsive.dart';
 import '../components/header.dart';
-
-import '../components/table_view.dart';
+import '../components/my_projects.dart';
 import '../components/server_details.dart';
 
-class DashboardView extends StatelessWidget {
+class CleansingProcessView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,9 +26,6 @@ class DashboardView extends StatelessWidget {
                     children: [
                       MyProjects(),
                       SizedBox(height: defaultPadding),
-                      // TableView(title: "Passed",),
-                      SizedBox(height: defaultPadding),
-                      // TableView(title: "Failed",),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
@@ -53,4 +48,5 @@ class DashboardView extends StatelessWidget {
       ),
     );
   }
+
 }

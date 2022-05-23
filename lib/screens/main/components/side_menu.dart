@@ -61,14 +61,14 @@ class SideMenu extends StatelessWidget {
           //   svgSrc: "assets/icons/menu_profile.svg",
           //   press: () {},
           // ),
-          DrawerListTile(
-            title: "Settings",
-            svgSrc: "assets/icons/menu_setting.svg",
-            press: () {
-              Provider.of<MainScreenViewModel>(context, listen: false)
-                  .setScreen(Screen.settings);
-            },
-          ),
+          // DrawerListTile(
+          //   title: "Settings",
+          //   svgSrc: "assets/icons/menu_setting.svg",
+          //   press: () {
+          //     Provider.of<MainScreenViewModel>(context, listen: false)
+          //         .setScreen(Screen.settings);
+          //   },
+          // ),
         ],
       ),
     );

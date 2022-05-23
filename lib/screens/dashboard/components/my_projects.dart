@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import '../../../constants.dart';
 import 'regex_info_card.dart';
 
-class MyFiles extends StatelessWidget {
-  const MyFiles({
+class MyProjects extends StatelessWidget {
+  const MyProjects({
     Key? key,
   }) : super(key: key);
 
@@ -20,7 +20,7 @@ class MyFiles extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              "My Regex",
+              "",
               style: Theme.of(context).textTheme.subtitle1,
             ),
             SizedBox(width: defaultPadding * 2),
@@ -31,12 +31,12 @@ class MyFiles extends StatelessWidget {
         ),
         SizedBox(height: defaultPadding),
         Responsive(
-          mobile: FileInfoCardGridView(
+          mobile: ProjectInfoCardGridView(
             crossAxisCount: _size.width < 650 ? 2 : 4,
             childAspectRatio: _size.width < 650 && _size.width > 350 ? 1.3 : 1,
           ),
-          tablet: FileInfoCardGridView(),
-          desktop: FileInfoCardGridView(
+          tablet: ProjectInfoCardGridView(),
+          desktop: ProjectInfoCardGridView(
             childAspectRatio: _size.width < 1400 ? 1.1 : 1.4,
           ),
         ),
@@ -45,8 +45,8 @@ class MyFiles extends StatelessWidget {
   }
 }
 
-class FileInfoCardGridView extends StatelessWidget {
-  const FileInfoCardGridView({
+class ProjectInfoCardGridView extends StatelessWidget {
+  const ProjectInfoCardGridView({
     Key? key,
     this.crossAxisCount = 4,
     this.childAspectRatio = 1,
