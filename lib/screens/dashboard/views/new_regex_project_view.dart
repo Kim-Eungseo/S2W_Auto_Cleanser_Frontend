@@ -1,6 +1,6 @@
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/components/code_editor/editor.dart';
-import 'package:admin/screens/dashboard/components/my_projects.dart';
+import 'package:admin/screens/dashboard/components/detected_columns.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';

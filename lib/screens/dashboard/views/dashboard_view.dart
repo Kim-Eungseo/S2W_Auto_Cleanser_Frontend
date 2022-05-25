@@ -1,5 +1,5 @@
 import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/components/my_projects.dart';
+import 'package:admin/screens/dashboard/components/detected_columns.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
@@ -26,7 +26,7 @@ class DashboardView extends StatelessWidget {
                   flex: 5,
                   child: Column(
                     children: [
-                      MyProjects(),
+                      DetectedColumns(),
                       SizedBox(height: defaultPadding),
                       // TableView(title: "Passed",),
                       SizedBox(height: defaultPadding),

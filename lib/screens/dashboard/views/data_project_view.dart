@@ -1,5 +1,6 @@
 import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/components/my_projects.dart';
+import 'package:admin/screens/dashboard/components/detected_columns.dart';
+import 'package:admin/viewmodels/auto_detection_viewmodel.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
@@ -26,7 +27,8 @@ class DataProjectView extends StatelessWidget {
       (context, listen: false);
     final SelectedDataHeadTableViewModel selectedHeadTableViewModel =
     Provider.of<SelectedDataHeadTableViewModel>(context, listen: false);
-
+    final AutoDetectionViewModel detectionViewModel =
+    Provider.of<AutoDetectionViewModel>(context, listen: false);
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -56,6 +58,7 @@ class DataProjectView extends StatelessWidget {
                         viewModel: viewModel,
                         onRowTap: (map) {
                           selectedHeadTableViewModel.searchById(map['id'] as int);
+                          detectionViewModel.tableColumnList = selectedHeadTableViewModel.tableColumnList;
                           selectedTableViewModel.setSelectedData(map);
                           Provider.of<MainScreenViewModel>(context, listen: false)
                           .setScreen(Screen.dataPreview);

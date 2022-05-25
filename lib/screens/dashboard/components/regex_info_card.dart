@@ -1,4 +1,5 @@
 import 'package:admin/models/MyRegex.dart';
+import 'package:admin/viewmodels/regex_project_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -10,7 +11,7 @@ class RegexInfoCard extends StatelessWidget {
     required this.info,
   }) : super(key: key);
 
-  final LocalRegexInfo info;
+  final RegexProjectDto info;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,11 @@ class RegexInfoCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                info.title!,
+                info.name ?? "",
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: Colors.white70),
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -36,7 +41,25 @@ class RegexInfoCard extends StatelessWidget {
             ],
           ),
           Text(
-            info.title!,
+            info.regex ?? "",
+            style: Theme.of(context)
+                .textTheme
+                .bodyText2!
+                .copyWith(color: Colors.white60),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          Text(
+            info.timestamp ?? "",
+            style: Theme.of(context)
+                .textTheme
+                .caption!
+                .copyWith(color: Colors.white60),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+          Text(
+            info.author ?? "",
             style: Theme.of(context)
                 .textTheme
                 .caption!

@@ -1,5 +1,5 @@
 import 'package:admin/responsive.dart';
-import 'package:admin/screens/dashboard/components/my_projects.dart';
+import 'package:admin/screens/dashboard/components/detected_columns.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
@@ -9,6 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../viewmodels/auto_detection_viewmodel.dart';
 import '../../../viewmodels/main_screen_viewmodel.dart';
 import '../../../viewmodels/selected_data_head_table_viewmodel.dart';
 import '../components/header.dart';
@@ -28,6 +29,7 @@ class SelectedDataProjectView extends StatelessWidget {
     final DataProjectViewModel viewModel = Provider.of<DataProjectViewModel>(context);
     final TableViewModelInterface dataPreviewModel = Provider.of<SelectedDataTableViewModel>(context);
     final TableViewModelInterface dataTablePreviewModel = Provider.of<SelectedDataHeadTableViewModel>(context);
+    final AutoDetectionViewModel detectionViewModel = Provider.of<AutoDetectionViewModel>(context);
 
 
     return SafeArea(
@@ -116,7 +118,7 @@ class SelectedDataProjectView extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            "Add Cleansing Process",
+                            "Column Data Detection",
                             style: Theme.of(context).textTheme.headline6,
                           ),
                           Spacer(),
@@ -129,19 +131,42 @@ class SelectedDataProjectView extends StatelessWidget {
                               ),
                             ),
                             onPressed: () {
-                              viewModel.tableDataList.remove(dataPreviewModel.tableDataList[0]);
-                              viewModel.delete(dataPreviewModel.tableDataList[0]['id'] as int);
-                              Provider.of<MainScreenViewModel>(context, listen: false)
-                                  .setScreen(Screen.data);
+                              Provider.of<AutoDetectionViewModel>(context, listen: false).getAutoDetection(dataPreviewModel.tableDataList[0]['id']);
                             },
                             icon: Icon(Icons.image_search_rounded), label: Text("Auto-Detection"),
                           ),
+                          SizedBox(width: defaultPadding),
+
+                          ElevatedButton.icon(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: defaultPadding * 1.5,
+                                vertical:
+                                defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                              ),
+                            ),
+                            onPressed: () {
+                              Provider.of<MainScreenViewModel>(context, listen: false)
+                                  .setScreen(Screen.cleanse);
+                            },
+                            icon: Icon(Icons.arrow_forward), label: Text("Go to Cleansing Process"),
+                          ),
+
                         ],
                       ),
-                      TableView(
-                        title: "Detected Regexes",
-                        viewModel: dataTablePreviewModel,
+                      SizedBox(height: defaultPadding),
+                      Column(
+                        children: [
+                          for (int i = 0; i < detectionViewModel.tableDataList.length; i++)
+                            Container(
+                              child: DetectedColumns(
+                                title: detectionViewModel.tableColumnList[i],
+                                detectedRegexes: detectionViewModel.tableDataList[i],
+                              ),
+                            )
+                        ],
                       ),
+
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))

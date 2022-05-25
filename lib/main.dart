@@ -1,6 +1,8 @@
 import 'package:admin/constants.dart';
+import 'package:admin/repositories/auto_cleansing_repository.dart';
 import 'package:admin/repositories/data_project_repository.dart';
 import 'package:admin/repositories/regex_project_repository.dart';
+import 'package:admin/viewmodels/auto_detection_viewmodel.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/main_screen_viewmodel.dart';
 import 'package:admin/viewmodels/menu_viewmodel.dart';
@@ -73,6 +75,11 @@ class _MyApp extends State<MyApp> {
           ),
           ChangeNotifierProvider(
               create: (context) => SelectedRegexTableViewModel()
+          ),
+          ChangeNotifierProvider(
+              create: (context) => AutoDetectionViewModel(
+                AutoCleansingRepository()
+              )
           ),
         ],
         child: MainScreen(),

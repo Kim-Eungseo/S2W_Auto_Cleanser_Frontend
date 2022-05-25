@@ -15,7 +15,7 @@ class SelectedDataHeadTableViewModel extends ChangeNotifier
     this.dataProjectRepository
   );
 
-  List<String> _tableColumnList = [];
+  List<String> _tableColumnList = ["not set yet"];
 
   set tableColumnList(List<String> value) {
     _tableColumnList = value;

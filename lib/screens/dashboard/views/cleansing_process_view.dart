@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import '../../../constants.dart';
 import '../../../responsive.dart';
 import '../components/header.dart';
-import '../components/my_projects.dart';
+import '../components/detected_columns.dart';
 import '../components/server_details.dart';
 
 class CleansingProcessView extends StatelessWidget {
@@ -24,7 +24,7 @@ class CleansingProcessView extends StatelessWidget {
                   flex: 5,
                   child: Column(
                     children: [
-                      MyProjects(),
+                      DetectedColumns(),
                       SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
