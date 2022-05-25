@@ -12,6 +12,7 @@ class SelectedRegexTableViewModel extends ChangeNotifier
   List<Map<String, dynamic>> tableDataList = [];
   String code = "";
   List<String> lines = <String>[''];
+  bool isFromAutoDetection = false;
 
   @override
   List<Map<String, dynamic>> getTableDataList() {

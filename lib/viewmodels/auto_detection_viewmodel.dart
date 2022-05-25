@@ -28,6 +28,12 @@ class AutoDetectionViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void initView() {
+    _tableColumnList = ["not set yet"];
+    tableDataList = [];
+    notify();
+  }
+
   void getAutoDetection(int id) async{
     Future<Map<String, dynamic>> data = cleansingRepository
         .remoteDataSource

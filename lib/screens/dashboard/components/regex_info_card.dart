@@ -2,8 +2,11 @@ import 'package:admin/models/MyRegex.dart';
 import 'package:admin/viewmodels/regex_project_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../viewmodels/main_screen_viewmodel.dart';
+import '../../../viewmodels/selected_regex_table_viewmodel.dart';
 
 class RegexInfoCard extends StatelessWidget {
   const RegexInfoCard({
@@ -13,8 +16,13 @@ class RegexInfoCard extends StatelessWidget {
 
   final RegexProjectDto info;
 
+
   @override
   Widget build(BuildContext context) {
+
+    final SelectedRegexTableViewModel viewModel
+    = Provider.of<SelectedRegexTableViewModel>(context, listen: false);
+
     return Container(
       padding: EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
@@ -37,7 +45,15 @@ class RegexInfoCard extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-              Icon(Icons.more_vert, color: Colors.white54)
+              InkWell(
+                  onTap: () {
+                    viewModel.isFromAutoDetection = true;
+                    viewModel.setSelectedData(info.toJson());
+                    Provider.of<MainScreenViewModel>(context, listen: false)
+                        .setScreen(Screen.regexPreview);
+                  },
+                  child: Icon(Icons.info, color: Colors.white54)
+              )
             ],
           ),
           Text(
@@ -49,6 +65,7 @@ class RegexInfoCard extends StatelessWidget {
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           ),
+          ProgressLine(percentage: 10),
           Text(
             info.timestamp ?? "",
             style: Theme.of(context)
@@ -97,7 +114,7 @@ class ProgressLine extends StatelessWidget {
         ),
         LayoutBuilder(
           builder: (context, constraints) => Container(
-            width: constraints.maxWidth * (percentage! / 100),
+            width: constraints.maxWidth * ((percentage! > 100 ? 100 : percentage!) / 100),
             height: 5,
             decoration: BoxDecoration(
               color: color,

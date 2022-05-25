@@ -1,5 +1,6 @@
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/components/detected_columns.dart';
+import 'package:admin/screens/dashboard/components/flow_button.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
@@ -48,30 +49,27 @@ class SelectedRegexProjectView extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          ElevatedButton.icon(
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: defaultPadding * 1.5,
-                                vertical:
-                                defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
-                              ),
+                          if (regexPreviewModel.isFromAutoDetection == false)
+                            FlowButton(
+                              onPressed: () {
+                                Provider.of<MainScreenViewModel>(context, listen: false)
+                                    .setScreen(Screen.regex);
+                              },
+                              icon: Icon(Icons.arrow_back),
+                              label: Text("Go back to search"),
                             ),
-                            onPressed: () {
-                              Provider.of<MainScreenViewModel>(context, listen: false)
-                                  .setScreen(Screen.regex);
-                            },
-                            icon: Icon(Icons.arrow_back),
-                            label: Text("Go back to search"),
-                          ),
+                          if(regexPreviewModel.isFromAutoDetection)
+                            FlowButton(
+                                onPressed: () {
+                                  regexPreviewModel.isFromAutoDetection = false;
+                                  Provider.of<MainScreenViewModel>(context, listen: false)
+                                      .setScreen(Screen.dataPreview);
+                                },
+                                icon: Icon(Icons.arrow_back),
+                                label: Text("Go back to auto-detect")
+                            ),
                           Spacer(),
-                          ElevatedButton.icon(
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: defaultPadding * 1.5,
-                                vertical:
-                                defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
-                              ),
-                            ),
+                          FlowButton(
                             onPressed: () {
                               viewModel.tableDataList.remove(regexPreviewModel.tableDataList[0]);
                               viewModel.delete(regexPreviewModel.tableDataList[0]['id'] as int);
@@ -82,14 +80,7 @@ class SelectedRegexProjectView extends StatelessWidget {
                           ),
                           SizedBox(width: defaultPadding),
 
-                          ElevatedButton.icon(
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: defaultPadding * 1.5,
-                                vertical:
-                                defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
-                              ),
-                            ),
+                          FlowButton(
                             onPressed: () {
                               viewModel.tableDataList.remove(regexPreviewModel.tableDataList[0]);
                               viewModel.update(regexPreviewModel.tableDataList[0]);
@@ -110,6 +101,7 @@ class SelectedRegexProjectView extends StatelessWidget {
                           }),
                       SizedBox(height: defaultPadding),
                       Editor(codableViewmodel: Provider.of<SelectedRegexTableViewModel>(context, listen: false),),
+
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))

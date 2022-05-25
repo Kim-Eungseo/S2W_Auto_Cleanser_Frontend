@@ -116,12 +116,17 @@ class SelectedDataProjectView extends StatelessWidget {
                       SizedBox(height: defaultPadding),
                       // we need data cleansing process here
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             "Column Data Detection",
                             style: Theme.of(context).textTheme.headline6,
                           ),
-                          Spacer(),
+                        ]
+                      ),
+                      SizedBox(height: defaultPadding),
+                      Row(
+                        children: [
                           ElevatedButton.icon(
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.symmetric(
@@ -135,8 +140,7 @@ class SelectedDataProjectView extends StatelessWidget {
                             },
                             icon: Icon(Icons.image_search_rounded), label: Text("Auto-Detection"),
                           ),
-                          SizedBox(width: defaultPadding),
-
+                          Spacer(),
                           ElevatedButton.icon(
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.symmetric(

@@ -60,6 +60,7 @@ class DataProjectView extends StatelessWidget {
                           selectedHeadTableViewModel.searchById(map['id'] as int);
                           detectionViewModel.tableColumnList = selectedHeadTableViewModel.tableColumnList;
                           selectedTableViewModel.setSelectedData(map);
+                          Provider.of<AutoDetectionViewModel>(context, listen: false).initView();
                           Provider.of<MainScreenViewModel>(context, listen: false)
                           .setScreen(Screen.dataPreview);
                         },

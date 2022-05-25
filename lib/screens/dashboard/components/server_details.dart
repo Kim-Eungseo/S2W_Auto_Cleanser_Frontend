@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../constants.dart';
 import 'chart.dart';
-import 'storage_info_card.dart';
+import 'server_info_card.dart';
 
 class ServerDetails extends StatelessWidget {
 

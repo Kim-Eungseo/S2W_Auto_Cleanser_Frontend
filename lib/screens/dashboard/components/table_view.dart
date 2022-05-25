@@ -143,7 +143,7 @@ class _TableView extends State<TableView> {
               Text(
                   map[col].toString(),
                   overflow: TextOverflow.ellipsis,
-                  maxLines: 2
+                  maxLines: 5
               ),
             onTap: () => (onRowTap ?? (Map<String, dynamic> map) {})(map)
           )
