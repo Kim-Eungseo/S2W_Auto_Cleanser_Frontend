@@ -1,5 +1,5 @@
-import 'dart:html';
-
+import 'dart:convert';
+import 'dart:html' as html;
 import 'package:admin/models/RecentFile.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
 import 'package:data_table_2/data_table_2.dart';
@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../constants.dart';
 import '../../../responsive.dart';
+import 'flow_button.dart';
 
 class TableView extends StatefulWidget {
   final String? title;
@@ -17,6 +18,8 @@ class TableView extends StatefulWidget {
   final IconData? buttonIcon;
   final String? buttonText;
   final void Function()? onButtonTap;
+  final bool? isDownload;
+
 
   const TableView({
     Key? key,
@@ -27,6 +30,7 @@ class TableView extends StatefulWidget {
     this.buttonIcon,
     this.buttonText,
     this.onButtonTap,
+    this.isDownload
   }) : super(key: key);
 
   @override
@@ -41,8 +45,10 @@ class _TableView extends State<TableView> {
   IconData? buttonIcon;
   String? buttonText;
   void Function()? onButtonTap;
+  bool? isDownload;
 
   final ScrollController _scrollController = ScrollController();
+
 
   void initState() {
     this.title = widget.title;
@@ -52,6 +58,7 @@ class _TableView extends State<TableView> {
     this.buttonIcon = widget.buttonIcon;
     this.buttonText = widget.buttonText;
     this.onButtonTap = widget.onButtonTap;
+    this.isDownload = widget.isDownload;
   }
 
   @override
@@ -59,6 +66,7 @@ class _TableView extends State<TableView> {
     List<String>? tableColumnList = viewModel?.tableColumnList;
     List<Map<String, dynamic>>? tableDataList = viewModel?.getTableDataList();
 
+    double tableHeight = viewModel!.tableDataList.length * 60 >= 60 ? viewModel!.tableDataList.length * 60 + 100: 100;
     return Container(
       padding: EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
@@ -89,6 +97,20 @@ class _TableView extends State<TableView> {
                     icon: Icon(this.buttonIcon ?? Icons.add),
                     label: Text(this.buttonText ?? "Add New"),
                   ),
+                if(this.isDownload ?? false)
+                  ElevatedButton.icon(
+                    style: TextButton.styleFrom(
+
+                      padding: EdgeInsets.symmetric(
+                        horizontal: defaultPadding * 1.5,
+                        vertical:
+                        defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                      ),
+                    ),
+                    onPressed: downloadCsvFile,
+                    icon: Icon(this.buttonIcon ?? Icons.download_done_rounded),
+                    label: Text(this.buttonText ?? "Download"),
+                  ),
              ]
           ),
           Scrollbar(
@@ -96,13 +118,14 @@ class _TableView extends State<TableView> {
             controller: _scrollController,
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
-              controller: _scrollController,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
-                primary: false,
+              controller:_scrollController,
+              primary: false,
+              // child: SingleChildScrollView(
+              //   scrollDirection: Axis.vertical,
+              //   primary: false,
                 child: SizedBox(
                   width: viewModel!.tableColumnList.length * 300.0,
-                  height: viewModel!.tableDataList.length * 60 >= 60 ? viewModel!.tableDataList.length * 60 + 100: 100,
+                  height: tableHeight > 400.0 ? 400.0 : tableHeight,
                   child: DataTable2(
                     dataRowHeight: 60,
                     columnSpacing: defaultPadding,
@@ -126,7 +149,7 @@ class _TableView extends State<TableView> {
                     ),
                   ),
                 ),
-              ),
+              // ),
             ),
           ),
         ],
@@ -151,15 +174,45 @@ class _TableView extends State<TableView> {
     );
   }
 
-  DataRow recentFileDataRow(RecentFile fileInfo) {
-    return DataRow(
-      cells: [
-        DataCell(Text(fileInfo.title!, overflow: TextOverflow.ellipsis, maxLines: 2,)),
-        DataCell(Text(fileInfo.date!, overflow: TextOverflow.ellipsis, maxLines: 2,)),
-        DataCell(Text(fileInfo.size!, overflow: TextOverflow.ellipsis, maxLines: 2,)),
-        DataCell(Text("아 이거슨 타임스탬프여", overflow: TextOverflow.ellipsis,)),
-      ],
-    );
+  void downloadCsvFile() {
+
+    final text = makeCsvString();
+
+    // prepare
+    final bytes = utf8.encode(text);
+    final blob = html.Blob([bytes]);
+    final url = html.Url.createObjectUrlFromBlob(blob);
+    final anchor = html.document.createElement('a') as html.AnchorElement
+      ..href = url
+      ..style.display = 'none'
+      ..download = 'data.csv';
+    html.document.body?.children.add(anchor);
+
+    // download
+    anchor.click();
+
+    // cleanup
+    html.document.body?.children.remove(anchor);
+    html.Url.revokeObjectUrl(url);
+  }
+
+  String makeCsvString() {
+    String data = "";
+    var colList = viewModel?.tableColumnList;
+    var dataList = viewModel?.tableDataList;
+
+    data += colList!.join(",");
+    data += "\n";
+
+    for (Map<String, dynamic> d in dataList!) {
+      for (String col in colList) {
+        var tempList = [];
+        tempList.add(d[col] as String);
+        data += tempList.join(',');
+      }
+      data += "\n";
+    }
+    return data;
   }
 }
 

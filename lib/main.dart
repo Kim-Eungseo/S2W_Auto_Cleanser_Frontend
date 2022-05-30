@@ -3,7 +3,9 @@ import 'package:admin/repositories/auto_cleansing_repository.dart';
 import 'package:admin/repositories/data_project_repository.dart';
 import 'package:admin/repositories/regex_project_repository.dart';
 import 'package:admin/viewmodels/auto_detection_viewmodel.dart';
+import 'package:admin/viewmodels/data_cleansing_viewmodel.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
+import 'package:admin/viewmodels/fail_table_viewmodel.dart';
 import 'package:admin/viewmodels/main_screen_viewmodel.dart';
 import 'package:admin/viewmodels/menu_viewmodel.dart';
 import 'package:admin/screens/main/main_screen.dart';
@@ -13,6 +15,7 @@ import 'package:admin/viewmodels/regex_project_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_head_table_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_table_viewmodel.dart';
 import 'package:admin/viewmodels/selected_regex_table_viewmodel.dart';
+import 'package:admin/viewmodels/success_table_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -81,6 +84,14 @@ class _MyApp extends State<MyApp> {
                 AutoCleansingRepository()
               )
           ),
+          ChangeNotifierProvider(
+              create: (context) => DataCleansingViewModel(
+                  AutoCleansingRepository(),
+                  SuccessTableViewModel(),
+                  FailTableViewModel()
+              )
+          ),
+
         ],
         child: MainScreen(),
       ),

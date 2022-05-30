@@ -21,8 +21,9 @@ import '../components/server_details.dart';
 import '../components/text_search_field.dart';
 
 class SelectedRegexProjectView extends StatelessWidget {
+  final ScrollController _scrollController = ScrollController();
 
-  const SelectedRegexProjectView({
+  SelectedRegexProjectView({
     Key? key
   }) : super(key: key);
 
@@ -34,6 +35,7 @@ class SelectedRegexProjectView extends StatelessWidget {
 
     return SafeArea(
       child: SingleChildScrollView(
+        controller: _scrollController,
         primary: false,
         padding: EdgeInsets.all(defaultPadding),
         child: Column(

@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../viewmodels/auto_detection_viewmodel.dart';
+import '../../../viewmodels/data_cleansing_viewmodel.dart';
 import '../../../viewmodels/main_screen_viewmodel.dart';
 import '../../../viewmodels/selected_data_head_table_viewmodel.dart';
 import '../components/header.dart';
@@ -19,8 +20,9 @@ import '../components/server_details.dart';
 import '../components/text_search_field.dart';
 
 class SelectedDataProjectView extends StatelessWidget {
+  final ScrollController _scrollController = ScrollController();
 
-  const SelectedDataProjectView({
+  SelectedDataProjectView({
     Key? key
   }) : super(key: key);
 
@@ -136,7 +138,14 @@ class SelectedDataProjectView extends StatelessWidget {
                               ),
                             ),
                             onPressed: () {
-                              Provider.of<AutoDetectionViewModel>(context, listen: false).getAutoDetection(dataPreviewModel.tableDataList[0]['id']);
+                              int id = dataPreviewModel.tableDataList[0]['id'];
+                              Provider.of<AutoDetectionViewModel>(context, listen: false).getAutoDetection(id);
+                              Map<String, int> map = Provider.of<DataCleansingViewModel>(context, listen: false).selectedIndexes;
+                              for (String d in dataTablePreviewModel.tableColumnList){
+                                map[d] = -1;
+                              }
+                              Provider.of<DataCleansingViewModel>(context, listen: false).selectedIndexes = map;
+                              Provider.of<DataCleansingViewModel>(context, listen: false).projectId = id;
                             },
                             icon: Icon(Icons.image_search_rounded), label: Text("Auto-Detection"),
                           ),
@@ -159,16 +168,23 @@ class SelectedDataProjectView extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: defaultPadding),
-                      Column(
-                        children: [
-                          for (int i = 0; i < detectionViewModel.tableDataList.length; i++)
-                            Container(
-                              child: DetectedColumns(
-                                title: detectionViewModel.tableColumnList[i],
-                                detectedRegexes: detectionViewModel.tableDataList[i],
-                              ),
-                            )
-                        ],
+                      Consumer<DataCleansingViewModel>(
+                        builder: (context, grid, child) {
+                          return Column(
+                            children: [
+                              for (int i = 0; i <
+                                  detectionViewModel.tableDataList.length; i++)
+                                Container(
+                                  child: DetectedColumns(
+                                    title: detectionViewModel
+                                        .tableColumnList[i],
+                                    detectedRegexes: detectionViewModel
+                                        .tableDataList[i],
+                                  ),
+                                )
+                            ],
+                          );
+                        }
                       ),
 
                       if (Responsive.isMobile(context))

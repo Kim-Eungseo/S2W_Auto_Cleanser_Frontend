@@ -20,6 +20,7 @@ import '../components/server_details.dart';
 import '../components/text_search_field.dart';
 
 class RegexProjectView extends StatelessWidget {
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {

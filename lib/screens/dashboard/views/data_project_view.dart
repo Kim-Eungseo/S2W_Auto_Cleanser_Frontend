@@ -19,6 +19,7 @@ import '../components/server_details.dart';
 import '../components/text_search_field.dart';
 
 class DataProjectView extends StatelessWidget {
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,61 +32,64 @@ class DataProjectView extends StatelessWidget {
     Provider.of<AutoDetectionViewModel>(context, listen: false);
 
     return SafeArea(
-      child: SingleChildScrollView(
-        primary: false,
-        padding: EdgeInsets.all(defaultPadding),
-        child: Column(
-          children: [
-            Header(),
-            SizedBox(height: defaultPadding),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 5,
-                  child: Column(
-                    children: [
-                      ProjectSearchField(
-                        searchFieldTitle: "Data Project Search",
-                        viewModel: viewModel,
-                        hintText: "Type Data Project Name Here.",
-                      ),
-                      SizedBox(height: defaultPadding),
-                      // MyFiles(),
-                      // SizedBox(height: defaultPadding),
-                      TableView(
-                        title: "Projects",
-                        viewModel: viewModel,
-                        onRowTap: (map) {
-                          selectedHeadTableViewModel.searchById(map['id'] as int);
-                          detectionViewModel.tableColumnList = selectedHeadTableViewModel.tableColumnList;
-                          selectedTableViewModel.setSelectedData(map);
-                          Provider.of<AutoDetectionViewModel>(context, listen: false).initView();
-                          Provider.of<MainScreenViewModel>(context, listen: false)
-                          .setScreen(Screen.dataPreview);
-                        },
-                        isButton: true,
-                        onButtonTap: () {Provider.of<MainScreenViewModel>(context, listen: false)
-                            .setScreen(Screen.newDataProject);},
-                        ),
-                      if (Responsive.isMobile(context))
-                        SizedBox(height: defaultPadding),
-                      if (Responsive.isMobile(context))
-                        ServerDetails(),
-                    ],
-                  ),
-                ),
-                if (!Responsive.isMobile(context))
-                  SizedBox(width: defaultPadding),
-                // On Mobile means if the screen is less than 850 we dont want to show it
-                if (!Responsive.isMobile(context))
+      child: Scrollbar(
+        controller: _scrollController,
+        child: SingleChildScrollView(
+          primary: false,
+          padding: EdgeInsets.all(defaultPadding),
+          child: Column(
+            children: [
+              Header(),
+              SizedBox(height: defaultPadding),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
                   Expanded(
-                    flex: 2,
-                    child: ServerDetails(),
+                    flex: 5,
+                    child: Column(
+                      children: [
+                        ProjectSearchField(
+                          searchFieldTitle: "Data Project Search",
+                          viewModel: viewModel,
+                          hintText: "Type Data Project Name Here.",
+                        ),
+                        SizedBox(height: defaultPadding),
+                        // MyFiles(),
+                        // SizedBox(height: defaultPadding),
+                        TableView(
+                          title: "Projects",
+                          viewModel: viewModel,
+                          onRowTap: (map) {
+                            selectedHeadTableViewModel.searchById(map['id'] as int);
+                            detectionViewModel.tableColumnList = selectedHeadTableViewModel.tableColumnList;
+                            selectedTableViewModel.setSelectedData(map);
+                            Provider.of<AutoDetectionViewModel>(context, listen: false).initView();
+                            Provider.of<MainScreenViewModel>(context, listen: false)
+                            .setScreen(Screen.dataPreview);
+                          },
+                          isButton: true,
+                          onButtonTap: () {Provider.of<MainScreenViewModel>(context, listen: false)
+                              .setScreen(Screen.newDataProject);},
+                          ),
+                        if (Responsive.isMobile(context))
+                          SizedBox(height: defaultPadding),
+                        if (Responsive.isMobile(context))
+                          ServerDetails(),
+                      ],
+                    ),
                   ),
-              ],
-            )
-          ],
+                  if (!Responsive.isMobile(context))
+                    SizedBox(width: defaultPadding),
+                  // On Mobile means if the screen is less than 850 we dont want to show it
+                  if (!Responsive.isMobile(context))
+                    Expanded(
+                      flex: 2,
+                      child: ServerDetails(),
+                    ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );

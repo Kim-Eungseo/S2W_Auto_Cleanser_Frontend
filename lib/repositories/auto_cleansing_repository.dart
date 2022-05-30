@@ -26,4 +26,21 @@ class RemoteDataSource4AutoCleansing {
       throw Exception("Error on server");
     }
   }
+
+  Future<Map<String, dynamic>> cleanseData(String req) async {
+    String uri = "http://localhost:8000/v1/process/cleanse";
+    print(req);
+    final res = await http.post(
+        Uri.parse(uri),
+        headers: <String, String> {
+          'Content-Type': 'application/json',
+        },
+        body: req
+    );
+    if (res.statusCode == 200) {
+      return json.decode(res.body) as Map<String, dynamic>;
+    } else {
+      throw Exception("Error on server");
+    }
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:admin/screens/dashboard/views/cleansing_process_view.dart';
 import 'package:admin/screens/dashboard/views/data_project_view.dart';
 import 'package:admin/screens/dashboard/views/new_data_project_view.dart';
 import 'package:admin/screens/dashboard/views/new_regex_project_view.dart';
@@ -42,7 +43,7 @@ class MainScreen extends StatelessWidget {
                     case Screen.regex:
                       return RegexProjectView();
                     case Screen.cleanse:
-                      return DashboardView();
+                      return CleansingProcessView();
                     case Screen.settings:
                       return DashboardView();
                     case Screen.dataPreview:
