@@ -6,6 +6,15 @@ class MainScreenViewModel extends ChangeNotifier {
   // 메인 대시보드에 뭐가 보일 지 정하게 하는 state
   Screen dashboardScreen = Screen.data;
 
+  bool _isLoading = false;
+
+  bool get isLoading => _isLoading;
+
+  set isLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
+
   void setScreen(Screen screen) {
     dashboardScreen = screen;
     notifyListeners();

@@ -58,6 +58,14 @@ class _RegexInfoCard extends State<RegexInfoCard> {
         decoration: BoxDecoration(
           color: number! == cleansingViewModel.selectedIndexes[title!] ? tertiaryColor : secondaryColor,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              color: tertiaryColor.withOpacity(0.5),
+              spreadRadius: 3,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
         ),
         child: InkWell(
           onTap: () {

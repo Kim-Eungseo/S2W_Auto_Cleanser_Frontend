@@ -8,6 +8,7 @@ import 'package:admin/viewmodels/main_screen_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_head_table_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_table_viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
@@ -60,17 +61,20 @@ class DataProjectView extends StatelessWidget {
                           title: "Projects",
                           viewModel: viewModel,
                           onRowTap: (map) {
+                            Provider.of<MainScreenViewModel>(context, listen: false).isLoading = true;
                             selectedHeadTableViewModel.searchById(map['id'] as int);
                             detectionViewModel.tableColumnList = selectedHeadTableViewModel.tableColumnList;
                             selectedTableViewModel.setSelectedData(map);
                             Provider.of<AutoDetectionViewModel>(context, listen: false).initView();
                             Provider.of<MainScreenViewModel>(context, listen: false)
                             .setScreen(Screen.dataPreview);
+                            Provider.of<MainScreenViewModel>(context, listen: false).isLoading = false;
                           },
                           isButton: true,
                           onButtonTap: () {Provider.of<MainScreenViewModel>(context, listen: false)
                               .setScreen(Screen.newDataProject);},
                           ),
+
                         if (Responsive.isMobile(context))
                           SizedBox(height: defaultPadding),
                         if (Responsive.isMobile(context))

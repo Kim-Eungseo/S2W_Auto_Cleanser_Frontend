@@ -17,6 +17,14 @@ class ServerDetails extends StatelessWidget {
       decoration: BoxDecoration(
         color: secondaryColor,
         borderRadius: const BorderRadius.all(Radius.circular(10)),
+        boxShadow: [
+          BoxShadow(
+            color: tertiaryColor.withOpacity(0.5),
+            spreadRadius: 3,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,6 +38,7 @@ class ServerDetails extends StatelessWidget {
           ),
           SizedBox(height: defaultPadding),
           Chart(),
+
           ServerInfoCard(
             svgSrc: "assets/icons/Documents.svg",
             title: "Documents Files",

@@ -1,6 +1,7 @@
 import 'package:admin/screens/dashboard/components/flow_button.dart';
 import 'package:admin/screens/dashboard/components/table_view.dart';
 import 'package:admin/viewmodels/data_cleansing_viewmodel.dart';
+import 'package:admin/viewmodels/main_screen_viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,8 @@ class CleansingProcessView extends StatelessWidget {
   Widget build(BuildContext context) {
     final DataCleansingViewModel viewModel = Provider.of<DataCleansingViewModel>(context);
     final AutoDetectionViewModel detectionViewModel = Provider.of<AutoDetectionViewModel>(context);
+    final MainScreenViewModel mainScreenViewModel = Provider.of<MainScreenViewModel>(context, listen: false);
+
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -43,7 +46,9 @@ class CleansingProcessView extends StatelessWidget {
                             FlowButton(
                                 onPressed: () {
                                   if (detectionViewModel.tableDataList.length > 0){
+                                    mainScreenViewModel.isLoading = true;
                                     viewModel.cleanse();
+                                    mainScreenViewModel.isLoading = false;
                                   }
                                 },
                                 icon: Icon(Icons.cleaning_services_rounded),
@@ -68,6 +73,9 @@ class CleansingProcessView extends StatelessWidget {
                             )
                         ],
                       ),
+                      Divider(),
+                      SizedBox(height: defaultPadding),
+
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [

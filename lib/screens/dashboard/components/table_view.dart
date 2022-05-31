@@ -5,9 +5,11 @@ import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
 import 'package:data_table_2/data_table_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 import '../../../responsive.dart';
+import '../../../viewmodels/main_screen_viewmodel.dart';
 import 'flow_button.dart';
 
 class TableView extends StatefulWidget {
@@ -67,11 +69,21 @@ class _TableView extends State<TableView> {
     List<Map<String, dynamic>>? tableDataList = viewModel?.getTableDataList();
 
     double tableHeight = viewModel!.tableDataList.length * 60 >= 60 ? viewModel!.tableDataList.length * 60 + 100: 100;
+
+    final MainScreenViewModel mainScreenViewModel = Provider.of<MainScreenViewModel>(context, listen: false);
     return Container(
       padding: EdgeInsets.all(defaultPadding),
       decoration: BoxDecoration(
         color: secondaryColor,
         borderRadius: const BorderRadius.all(Radius.circular(10)),
+        boxShadow: [
+          BoxShadow(
+            color: tertiaryColor.withOpacity(0.5),
+            spreadRadius: 3,
+            blurRadius: 7,
+            offset: Offset(0, 3), // changes position of shadow
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,7 +119,11 @@ class _TableView extends State<TableView> {
                         defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
                       ),
                     ),
-                    onPressed: downloadCsvFile,
+                    onPressed: () {
+                      mainScreenViewModel.isLoading = true;
+                      downloadCsvFile();
+                      mainScreenViewModel.isLoading = false;
+                    },
                     icon: Icon(this.buttonIcon ?? Icons.download_done_rounded),
                     label: Text(this.buttonText ?? "Download"),
                   ),
@@ -175,7 +191,6 @@ class _TableView extends State<TableView> {
   }
 
   void downloadCsvFile() {
-
     final text = makeCsvString();
 
     // prepare

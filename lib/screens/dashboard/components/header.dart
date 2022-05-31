@@ -5,11 +5,15 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../viewmodels/main_screen_viewmodel.dart';
 
 class Header extends StatelessWidget {
   const Header({
     Key? key,
   }) : super(key: key);
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +29,16 @@ class Header extends StatelessWidget {
             "Auto-Cleansing Dashboard",
             style: Theme.of(context).textTheme.headline6,
           ),
+        SizedBox(width: defaultPadding),
+        Consumer<MainScreenViewModel>(
+            builder: (context, mainScreen, child) {
+              if (mainScreen.isLoading) {
+                return Text("Loading...");
+              } else {
+                return SizedBox(width: 0, height: 0,);
+              }
+            }
+        ),
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
         SizedBox(width: defaultPadding),

@@ -56,9 +56,11 @@ class RegexProjectView extends StatelessWidget {
                         title: "Projects",
                         viewModel: viewModel,
                         onRowTap: (map) {
+                          Provider.of<MainScreenViewModel>(context, listen: false).isLoading = true;
                           selectedTableViewModel.setSelectedData(map);
                           Provider.of<MainScreenViewModel>(context, listen: false)
                               .setScreen(Screen.regexPreview);
+                          Provider.of<MainScreenViewModel>(context, listen: false).isLoading = false;
                         },
                         isButton: true,
                         onButtonTap: () {Provider.of<MainScreenViewModel>(context, listen: false)

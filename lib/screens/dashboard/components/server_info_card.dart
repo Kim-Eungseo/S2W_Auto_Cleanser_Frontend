@@ -25,6 +25,7 @@ class ServerInfoCard extends StatelessWidget {
         borderRadius: const BorderRadius.all(
           Radius.circular(defaultPadding),
         ),
+
       ),
       child: Row(
         children: [

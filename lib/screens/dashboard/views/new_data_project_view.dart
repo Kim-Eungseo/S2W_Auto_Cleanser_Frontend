@@ -7,7 +7,10 @@ import 'package:admin/viewmodels/new_data_project_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_table_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dropzone/flutter_dropzone.dart';
 import 'package:provider/provider.dart';
+
+import 'dart:convert';
 
 import '../../../constants.dart';
 import '../../../viewmodels/main_screen_viewmodel.dart';
@@ -28,13 +31,23 @@ class NewDataProjectView extends StatefulWidget {
 }
 
 class _NewDataProjectView extends State<NewDataProjectView> {
-
-
   @override
   void initState() {
     super.initState();
   }
 
+  void setFileData(String data) {
+    this.fileText = data;
+    setState(() {
+
+    });
+    print(fileText);
+  }
+
+  late DropzoneViewController controller1;
+  String message1 = 'Drop file data at here';
+  bool highlighted1 = false;
+  String? fileText;
   // const _NewDataProjectView({
   //   Key? key
   // }) : super(key: key);
@@ -80,7 +93,55 @@ class _NewDataProjectView extends State<NewDataProjectView> {
                         ],
                       ),
                       SizedBox(height: defaultPadding),
-                      NewProjectContainerView(viewModel),
+                      NewProjectContainerView(
+                        viewModel: viewModel,
+                        fileData: fileText,
+                      ),
+                      SizedBox(height: defaultPadding),
+                      Container(
+                        padding: EdgeInsets.all(defaultPadding),
+                        decoration: BoxDecoration(
+                          color: highlighted1 ? tertiaryColor: bgColor,
+                          borderRadius: const BorderRadius.all(Radius.circular(10)),
+                          border: Border.all(width: 2, color: primaryColor.withOpacity(0.15)),
+                        ),
+                        height: 400,
+                        child: Stack(
+                            children: [
+                              DropzoneView(
+                                operation: DragOperation.copy,
+                                cursor: CursorType.grab,
+                                onCreated: (ctrl) => controller1 = ctrl,
+                                onLoaded: () => print('Zone 1 loaded'),
+                                onError: (ev) => print('Zone 1 error: $ev'),
+                                onHover: () {
+                                  setState(() => highlighted1 = true);
+                                  print('Zone 1 hovered');
+                                },
+                                onLeave: () {
+                                  setState(() => highlighted1 = false);
+                                  print('Zone 1 left');
+                                },
+                                onDrop: (ev) async {
+                                  print('Zone 1 drop: ${ev.name}');
+                                  setState(() {
+                                    message1 = '${ev.name} dropped.\n You no need to fill the file text field';
+                                    highlighted1 = false;
+                                  });
+                                  final bytes = await controller1.getFileData(ev);
+                                  setFileData(utf8.decode(bytes));
+
+                                },
+                                onDropMultiple: (ev) async {
+                                  print('Zone 1 drop multiple: $ev');
+                                },
+                              ),
+                              Center(child: Text(message1)),
+                              ]
+                            ),
+
+                        ),
+
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
@@ -106,8 +167,13 @@ class _NewDataProjectView extends State<NewDataProjectView> {
 }
 
 class NewProjectContainerView extends StatefulWidget {
-  final NewDataProjectViewModel viewModel;
-  NewProjectContainerView(this.viewModel);
+  final NewDataProjectViewModel? viewModel;
+  String? fileData;
+
+  NewProjectContainerView({
+    this.viewModel,
+    this.fileData
+  });
 
   @override
   State<StatefulWidget> createState() => _NewProjectContainerView();
@@ -118,11 +184,17 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
 
   NewDataProjectViewModel? viewModel;
   Map<String, String> newData = {};
+  bool isOn = false;
+  String fileData = "";
 
   @override
   void initState() {
     super.initState();
     viewModel = widget.viewModel;
+    newData["file_text"] = widget.fileData ?? "";
+    fileData =  widget.fileData ?? "";
+    print(newData["file_text"]);
+    print("1234567890");
   }
 
   @override
@@ -135,7 +207,16 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
         decoration: BoxDecoration(
           color: secondaryColor,
           borderRadius: const BorderRadius.all(Radius.circular(10)),
+          boxShadow: [
+            BoxShadow(
+              color: tertiaryColor.withOpacity(0.5),
+              spreadRadius: 3,
+              blurRadius: 7,
+              offset: Offset(0, 3), // changes position of shadow
+            ),
+          ],
         ),
+
         child:
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -156,8 +237,10 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
                       ),
                       onPressed: () {
                         print("onpressed");
+                        if (fileData.length == 0) {
+                          newData['file_text'] = fileData;
+                        }
                         viewModel!.addNewDataProject(newData);
-
                         Provider.of<MainScreenViewModel>(context, listen: false)
                             .setScreen(Screen.data);
                       },
@@ -195,7 +278,8 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
                    ),
                   ],
                 ),
-              )
+              ),
+
             ],
           )
       ),
