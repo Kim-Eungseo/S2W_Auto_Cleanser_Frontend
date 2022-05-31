@@ -20,6 +20,7 @@ class _Chart extends State<Chart> {
   double? totalRam;
   double? usedDisk;
   double? totalDisk;
+  double? cpuUsage;
 
   @override
   void initState() {
@@ -44,6 +45,7 @@ class _Chart extends State<Chart> {
       this.totalRam = (int.parse(unfuturedData['total']!) / 1024 / 1024 / 1024);
       this.usedDisk = (double.parse(unfuturedData['disk_used']!)/ 1024 / 1024 / 1024);
       this.totalDisk = (int.parse(unfuturedData['disk_total']!) / 1024 / 1024 / 1024);
+      this.cpuUsage = double.parse(unfuturedData['cpu_percent']!);
     });
 
     setState((){
@@ -123,6 +125,40 @@ class _Chart extends State<Chart> {
             ],
           ),
         ),
+        SizedBox(height: defaultPadding,),
+        SizedBox(
+          height: 200,
+          child: Stack(
+            children: [
+              PieChart(
+                PieChartData(
+                  sectionsSpace: 0,
+                  centerSpaceRadius: 70,
+                  startDegreeOffset: -90,
+                  sections: pieChartSelectionDatasCpu(),
+                ),
+              ),
+              Positioned.fill(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("CPU"),
+                    SizedBox(height: defaultPadding),
+                    Text(
+                      (cpuUsage ?? 0.0).toStringAsFixed(1) + "%",
+                      style: Theme.of(context).textTheme.headline4!.copyWith(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w600,
+                        height: 0.5,
+                      ),
+                    ),
+                    // Text("of total CPU resource")
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ]
     );
   }
@@ -155,6 +191,23 @@ class _Chart extends State<Chart> {
       PieChartSectionData(
         color: primaryColor.withOpacity(0.1),
         value: ((totalDisk ?? 25) - (usedDisk ?? 0)).toDouble(),
+        showTitle: false,
+        radius: 13,
+      ),
+    ];
+  }
+
+  List<PieChartSectionData> pieChartSelectionDatasCpu(){
+    return [
+      PieChartSectionData(
+        color: primaryColor,
+        value: (cpuUsage ?? 0).toDouble(),
+        showTitle: false,
+        radius: 25,
+      ),
+      PieChartSectionData(
+        color: primaryColor.withOpacity(0.1),
+        value: 100.0 - (cpuUsage ?? 0.0),
         showTitle: false,
         radius: 13,
       ),
