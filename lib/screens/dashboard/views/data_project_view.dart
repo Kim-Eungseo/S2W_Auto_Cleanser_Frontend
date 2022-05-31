@@ -20,7 +20,6 @@ import '../components/server_details.dart';
 import '../components/text_search_field.dart';
 
 class DataProjectView extends StatelessWidget {
-  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +33,6 @@ class DataProjectView extends StatelessWidget {
 
     return SafeArea(
       child: Scrollbar(
-        controller: _scrollController,
         child: SingleChildScrollView(
           primary: false,
           padding: EdgeInsets.all(defaultPadding),
