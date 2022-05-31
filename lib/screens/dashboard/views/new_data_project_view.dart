@@ -37,25 +37,27 @@ class _NewDataProjectView extends State<NewDataProjectView> {
   }
 
   void setFileData(String data) {
-    this.fileText = data;
     setState(() {
-
     });
-    print(fileText);
   }
 
   late DropzoneViewController controller1;
   String message1 = 'Drop file data at here';
   bool highlighted1 = false;
-  String? fileText;
   // const _NewDataProjectView({
   //   Key? key
   // }) : super(key: key);
+
+
 
   @override
   Widget build(BuildContext context) {
     final NewDataProjectViewModel viewModel
     = Provider.of<NewDataProjectViewModel>(context);
+
+    NewProjectContainerView newProjectContainerView = NewProjectContainerView(
+      viewModel: viewModel,
+    );
 
     return SafeArea(
       child: SingleChildScrollView(
@@ -93,10 +95,7 @@ class _NewDataProjectView extends State<NewDataProjectView> {
                         ],
                       ),
                       SizedBox(height: defaultPadding),
-                      NewProjectContainerView(
-                        viewModel: viewModel,
-                        fileData: fileText,
-                      ),
+                      newProjectContainerView,
                       SizedBox(height: defaultPadding),
                       Container(
                         padding: EdgeInsets.all(defaultPadding),
@@ -129,7 +128,7 @@ class _NewDataProjectView extends State<NewDataProjectView> {
                                     highlighted1 = false;
                                   });
                                   final bytes = await controller1.getFileData(ev);
-                                  setFileData(utf8.decode(bytes));
+                                  Provider.of<NewDataProjectViewModel>(context , listen: false).uploadedText = utf8.decode(bytes);
 
                                 },
                                 onDropMultiple: (ev) async {
@@ -168,11 +167,9 @@ class _NewDataProjectView extends State<NewDataProjectView> {
 
 class NewProjectContainerView extends StatefulWidget {
   final NewDataProjectViewModel? viewModel;
-  String? fileData;
 
   NewProjectContainerView({
     this.viewModel,
-    this.fileData
   });
 
   @override
@@ -185,16 +182,12 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
   NewDataProjectViewModel? viewModel;
   Map<String, String> newData = {};
   bool isOn = false;
-  String fileData = "";
 
   @override
   void initState() {
     super.initState();
     viewModel = widget.viewModel;
-    newData["file_text"] = widget.fileData ?? "";
-    fileData =  widget.fileData ?? "";
     print(newData["file_text"]);
-    print("1234567890");
   }
 
   @override
@@ -237,9 +230,6 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
                       ),
                       onPressed: () {
                         print("onpressed");
-                        if (fileData.length == 0) {
-                          newData['file_text'] = fileData;
-                        }
                         viewModel!.addNewDataProject(newData);
                         Provider.of<MainScreenViewModel>(context, listen: false)
                             .setScreen(Screen.data);
@@ -264,6 +254,7 @@ class _NewProjectContainerView extends State<NewProjectContainerView> {
                          maxLines: null,
                          onChanged: (text) {
                            newData[s] = text;
+                           print(newData.toString());
                          },
                          decoration: InputDecoration(
                            hintText: viewModel!.schema[s],
