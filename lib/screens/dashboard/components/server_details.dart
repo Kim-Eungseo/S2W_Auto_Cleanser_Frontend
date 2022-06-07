@@ -39,30 +39,30 @@ class ServerDetails extends StatelessWidget {
           SizedBox(height: defaultPadding),
           Chart(),
 
-          ServerInfoCard(
-            svgSrc: "assets/icons/Documents.svg",
-            title: "Documents Files",
-            amountOfFiles: "1.3GB",
-            numOfFiles: 1328,
-          ),
-          ServerInfoCard(
-            svgSrc: "assets/icons/media.svg",
-            title: "Media Files",
-            amountOfFiles: "15.3GB",
-            numOfFiles: 1328,
-          ),
-          ServerInfoCard(
-            svgSrc: "assets/icons/folder.svg",
-            title: "Other Files",
-            amountOfFiles: "1.3GB",
-            numOfFiles: 1328,
-          ),
-          ServerInfoCard(
-            svgSrc: "assets/icons/unknown.svg",
-            title: "Unknown",
-            amountOfFiles: "1.3GB",
-            numOfFiles: 140,
-          ),
+          // ServerInfoCard(
+          //   svgSrc: "assets/icons/Documents.svg",
+          //   title: "Documents Files",
+          //   amountOfFiles: "1.3GB",
+          //   numOfFiles: 1328,
+          // ),
+          // ServerInfoCard(
+          //   svgSrc: "assets/icons/media.svg",
+          //   title: "Media Files",
+          //   amountOfFiles: "15.3GB",
+          //   numOfFiles: 1328,
+          // ),
+          // ServerInfoCard(
+          //   svgSrc: "assets/icons/folder.svg",
+          //   title: "Other Files",
+          //   amountOfFiles: "1.3GB",
+          //   numOfFiles: 1328,
+          // ),
+          // ServerInfoCard(
+          //   svgSrc: "assets/icons/unknown.svg",
+          //   title: "Unknown",
+          //   amountOfFiles: "1.3GB",
+          //   numOfFiles: 140,
+          // ),
         ],
       ),
     );
