@@ -46,7 +46,7 @@ class SelectedRegexProjectView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  flex: 5,
+                  flex: 3,
                   child: Column(
                     children: [
                       Row(
@@ -116,7 +116,7 @@ class SelectedRegexProjectView extends StatelessWidget {
                 // On Mobile means if the screen is less than 850 we dont want to show it
                 if (!Responsive.isMobile(context))
                   Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: ServerDetails(),
                   ),
               ],

@@ -100,7 +100,7 @@ class DataProjectDto {
   }
 
   static List<String> getColumnList(){
-    return ["id", "name", "author", "timestamp"];
+    return ["name", "author", "timestamp", "id"];
   }
 
 }

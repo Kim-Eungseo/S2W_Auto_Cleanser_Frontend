@@ -57,7 +57,7 @@ class _NewRegexProjectView extends State<NewRegexProjectView> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  flex: 5,
+                  flex: 4,
                   child: Column(
                     children: [
                       Row(
@@ -96,7 +96,7 @@ class _NewRegexProjectView extends State<NewRegexProjectView> {
                 // On Mobile means if the screen is less than 850 we dont want to show it
                 if (!Responsive.isMobile(context))
                   Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: ServerDetails(),
                   ),
               ],
@@ -184,7 +184,7 @@ class _NewProjectContainerView extends State<NewRegexProjectContainerView> {
                           child: Text(s , style: Theme.of(context).textTheme.subtitle1)
                       ),
                       Expanded(
-                        flex: 4,
+                        flex: 3,
                         child: TextField(
                           onChanged: (text) {
                             newData[s] = text;

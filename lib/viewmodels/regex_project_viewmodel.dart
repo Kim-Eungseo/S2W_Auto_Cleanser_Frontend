@@ -109,7 +109,7 @@ class RegexProjectDto {
   }
 
   static List<String> getColumnList(){
-    return ["id", "name", "author", "timestamp", "regex"];
+    return ["name", "author", "timestamp", "regex", "id"];
   }
 
 }
