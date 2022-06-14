@@ -148,63 +148,63 @@ class _NewProjectContainerView extends State<NewRegexProjectContainerView> {
             ],
           ),
           child:
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text("Add New Regex Project", style: Theme.of(context).textTheme.subtitle1),
-                    Spacer(),
-                    ElevatedButton.icon(
-                      style: TextButton.styleFrom(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: defaultPadding * 1.5,
-                          vertical:
-                          defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
-                        ),
-                      ),
-                      onPressed: () {
-                        viewModel!.addNewRegexProject(newData);
-                        Provider.of<MainScreenViewModel>(context, listen: false)
-                            .setScreen(Screen.regex);
-                      },
-                      icon: Icon(Icons.add),
-                      label: Text("Submit"),
-                    ),
-                  ]
-              ),
-              for (String s in viewModel!.schema.keys)
-                Expanded(
-                  child: Row(
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      SizedBox(width: defaultPadding),
-                      Expanded(
-                          child: Text(s , style: Theme.of(context).textTheme.subtitle1)
+                      Text("Add New Regex Project", style: Theme.of(context).textTheme.subtitle1),
+                      Spacer(),
+                      ElevatedButton.icon(
+                        style: TextButton.styleFrom(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: defaultPadding * 1.5,
+                            vertical:
+                            defaultPadding / (Responsive.isMobile(context) ? 2 : 1),
+                          ),
+                        ),
+                        onPressed: () {
+                          viewModel!.addNewRegexProject(newData);
+                          Provider.of<MainScreenViewModel>(context, listen: false)
+                              .setScreen(Screen.regex);
+                        },
+                        icon: Icon(Icons.add),
+                        label: Text("Submit"),
                       ),
-                      Expanded(
-                        flex: 3,
-                        child: TextField(
-                          onChanged: (text) {
-                            newData[s] = text;
-                          },
-                          decoration: InputDecoration(
-                            hintText: viewModel!.schema[s],
-                            fillColor: secondaryColor,
-                            filled: true,
-                            border: OutlineInputBorder(
-                                borderSide: BorderSide.none,
-                                borderRadius: const BorderRadius.all(Radius.circular(10))
+                    ]
+                ),
+                for (String s in viewModel!.schema.keys)
+                  Expanded(
+                    child: Row(
+                      children: [
+                        SizedBox(width: defaultPadding),
+                        Expanded(
+                            child: Text(s , style: Theme.of(context).textTheme.subtitle1)
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: TextField(
+                            onChanged: (text) {
+                              newData[s] = text;
+                            },
+                            decoration: InputDecoration(
+                              hintText: viewModel!.schema[s],
+                              fillColor: secondaryColor,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: const BorderRadius.all(Radius.circular(10))
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                )
-            ],
-          )
+                      ],
+                    ),
+                  )
+              ],
+            )
       ),
     );
   }

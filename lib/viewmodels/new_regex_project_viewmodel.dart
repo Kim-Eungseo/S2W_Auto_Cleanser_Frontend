@@ -13,7 +13,7 @@ class NewRegexProjectViewModel extends ChangeNotifier
     "regex": "put the regex rule here to detect column data",
   };
 
-  String code = "";
+  String code = "return value";
 
   void addNewRegexProject(Map<String, String> data) {
     data["code"] = this.code;
@@ -25,5 +25,9 @@ class NewRegexProjectViewModel extends ChangeNotifier
   void setCode(String code) {
     this.code = code;
     notifyListeners();
+  }
+
+  void setCodeDefault() {
+    this.code = "return value";
   }
 }

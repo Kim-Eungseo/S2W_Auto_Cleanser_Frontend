@@ -4,6 +4,7 @@ import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:admin/viewmodels/interfaces/search_field_viewmodel_interface.dart';
 import 'package:admin/viewmodels/interfaces/table_viewmodel_interface.dart';
 import 'package:admin/viewmodels/main_screen_viewmodel.dart';
+import 'package:admin/viewmodels/new_regex_project_viewmodel.dart';
 import 'package:admin/viewmodels/regex_project_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_head_table_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_table_viewmodel.dart';
@@ -63,8 +64,12 @@ class RegexProjectView extends StatelessWidget {
                           Provider.of<MainScreenViewModel>(context, listen: false).isLoading = false;
                         },
                         isButton: true,
-                        onButtonTap: () {Provider.of<MainScreenViewModel>(context, listen: false)
-                            .setScreen(Screen.newRegexProject);},
+                        onButtonTap: () {
+                          Provider.of<NewRegexProjectViewModel>(context, listen: false)
+                              .setCodeDefault();
+                          Provider.of<MainScreenViewModel>(context, listen: false)
+                            .setScreen(Screen.newRegexProject);
+                          },
                       ),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),

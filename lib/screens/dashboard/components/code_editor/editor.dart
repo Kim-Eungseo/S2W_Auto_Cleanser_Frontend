@@ -19,6 +19,7 @@ class Editor extends StatefulWidget {
 
 class _Editor extends State<Editor> {
   late DocumentProvider doc;
+
   @override
   void initState() {
     doc = DocumentProvider(
@@ -55,7 +56,8 @@ class _Editor extends State<Editor> {
                       "Python Code Editor",
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
-                    Spacer()
+                    Spacer(),
+
                   ]
               ),
               SizedBox(height: defaultPadding),

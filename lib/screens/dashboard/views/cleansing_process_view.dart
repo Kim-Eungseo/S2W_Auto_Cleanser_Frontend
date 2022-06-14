@@ -38,11 +38,19 @@ class CleansingProcessView extends StatelessWidget {
                       Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
+                            if (!Responsive.isMobile(context))
+                              Text(
                               "Cleaning Process Selection",
+                              overflow: TextOverflow.ellipsis,
                               style: Theme.of(context).textTheme.headline6,
-                            ),
-                            Spacer(),
+                              ),
+                            if (Responsive.isMobile(context))
+                              Text(
+                                "Select Process",
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.headline6,
+                              ),
+                              Spacer(),
                             FlowButton(
                                 onPressed: () {
                                   if (detectionViewModel.tableDataList.length > 0){

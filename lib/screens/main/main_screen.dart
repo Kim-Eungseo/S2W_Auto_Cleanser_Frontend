@@ -14,7 +14,13 @@ import 'package:provider/provider.dart';
 import '../dashboard/views/selected_regex_project_view.dart';
 import 'components/side_menu.dart';
 
-class MainScreen extends StatelessWidget {
+class MainScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => _MainScreen();
+
+}
+
+class _MainScreen extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {

@@ -9,13 +9,7 @@ import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 
-// class Chart extends StatefulWidget {
-//   @override
-//   State<StatefulWidget> createState() => _Chart();
-//
-// }
-//
-// class _Chart extends State<Chart> {
+
 class Chart extends StatelessWidget {
   // Timer? timer;
 

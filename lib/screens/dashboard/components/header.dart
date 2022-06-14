@@ -24,11 +24,17 @@ class Header extends StatelessWidget {
             icon: Icon(Icons.menu),
             onPressed: context.read<MenuProvider>().controlMenu,
           ),
+        if (Responsive.isMobile(context))
+          Text(
+            "Dashboard",
+            style: Theme.of(context).textTheme.headline6,
+          ),
         if (!Responsive.isMobile(context))
           Text(
             "Auto-Cleansing Dashboard",
             style: Theme.of(context).textTheme.headline6,
           ),
+
         SizedBox(width: defaultPadding),
         Consumer<MainScreenViewModel>(
             builder: (context, mainScreen, child) {
@@ -42,9 +48,10 @@ class Header extends StatelessWidget {
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
         SizedBox(width: defaultPadding),
-        Expanded(
+        if (!Responsive.isMobile(context))
+          Expanded(
           child: SearchField(),
-        ),
+          ),
       ],
     );
   }

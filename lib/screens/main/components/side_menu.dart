@@ -19,7 +19,7 @@ class SideMenu extends StatelessWidget {
             child: SvgPicture.asset(
               "icons/s2wlogo.svg",
               color: Colors.white,
-              fit: BoxFit.scaleDown
+              fit: BoxFit.scaleDown,
             ),
           ),
           DrawerListTile(
