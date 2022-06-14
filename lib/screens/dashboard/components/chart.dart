@@ -1,20 +1,23 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:admin/viewmodels/server_details_viewmodel.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 
-class Chart extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => _Chart();
-
-}
-
-class _Chart extends State<Chart> {
-  Timer? timer;
+// class Chart extends StatefulWidget {
+//   @override
+//   State<StatefulWidget> createState() => _Chart();
+//
+// }
+//
+// class _Chart extends State<Chart> {
+class Chart extends StatelessWidget {
+  // Timer? timer;
 
   double? usedRam;
   double? totalRam;
@@ -22,40 +25,16 @@ class _Chart extends State<Chart> {
   double? totalDisk;
   double? cpuUsage;
 
-  @override
-  void initState() {
-    super.initState();
-    timer = Timer.periodic(Duration(seconds: 3), (Timer t) => checkForRamUsage());
-  }
-
-  @override
-  void dispose() {
-    timer?.cancel();
-    super.dispose();
-  }
-
-  void checkForRamUsage() async{
-    // do request here
-    print("ram listen");
-    Future<Map<String, String>> data = getServerMetrics();
-
-    await data.then((unfuturedData) {
-      this.usedRam = (double.parse(unfuturedData['percent']!)
-          * int.parse(unfuturedData['total']!) / 1024 / 1024 / 1024 / 100);
-      this.totalRam = (int.parse(unfuturedData['total']!) / 1024 / 1024 / 1024);
-      this.usedDisk = (double.parse(unfuturedData['disk_used']!)/ 1024 / 1024 / 1024);
-      this.totalDisk = (int.parse(unfuturedData['disk_total']!) / 1024 / 1024 / 1024);
-      this.cpuUsage = double.parse(unfuturedData['cpu_percent']!);
-    });
-
-    setState((){
-      // change state according to result of request
-    });
-
-  }
 
   @override
   Widget build(BuildContext context) {
+    this.usedRam = context.watch<ServerDetailsViewModel>().usedRam;
+    this.totalDisk = context.watch<ServerDetailsViewModel>().totalDisk;
+    this.totalRam = context.watch<ServerDetailsViewModel>().totalRam;
+    this.usedDisk = context.watch<ServerDetailsViewModel>().usedDisk;
+    this.cpuUsage = context.watch<ServerDetailsViewModel>().cpuUsage;
+
+
     return Column(
       children: [
         SizedBox(

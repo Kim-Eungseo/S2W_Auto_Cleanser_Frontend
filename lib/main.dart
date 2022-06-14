@@ -15,6 +15,7 @@ import 'package:admin/viewmodels/regex_project_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_head_table_viewmodel.dart';
 import 'package:admin/viewmodels/selected_data_table_viewmodel.dart';
 import 'package:admin/viewmodels/selected_regex_table_viewmodel.dart';
+import 'package:admin/viewmodels/server_details_viewmodel.dart';
 import 'package:admin/viewmodels/success_table_viewmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -91,7 +92,9 @@ class _MyApp extends State<MyApp> {
                   FailTableViewModel()
               )
           ),
-
+          ChangeNotifierProvider(
+              create: (context) => ServerDetailsViewModel()
+          ),
         ],
         child: MainScreen(),
       ),
