@@ -51,17 +51,28 @@ class CleansingProcessView extends StatelessWidget {
                                 style: Theme.of(context).textTheme.headline6,
                               ),
                               Spacer(),
-                            FlowButton(
+                            if (detectionViewModel.tableDataList.length != 0)
+                              FlowButton(
+                                  onPressed: () {
+                                    if (detectionViewModel.tableDataList.length > 0){
+                                      mainScreenViewModel.isLoading = true;
+                                      viewModel.cleanse();
+                                      mainScreenViewModel.isLoading = false;
+                                    }
+                                  },
+                                  icon: Icon(Icons.cleaning_services_rounded),
+                                  label: Text("Cleanse!"),
+                              ),
+                            if (detectionViewModel.tableDataList.length == 0)
+                              FlowButton(
                                 onPressed: () {
-                                  if (detectionViewModel.tableDataList.length > 0){
-                                    mainScreenViewModel.isLoading = true;
-                                    viewModel.cleanse();
-                                    mainScreenViewModel.isLoading = false;
-                                  }
+                                  Provider.of<MainScreenViewModel>(context, listen: false)
+                                      .setScreen(Screen.data);
                                 },
-                                icon: Icon(Icons.cleaning_services_rounded),
-                                label: Text("Cleanse!"),
-                            )
+                                icon: Icon(Icons.arrow_back),
+                                label: Text("Go set process"),
+                              )
+
                           ]
                       ),
                       SizedBox(height: defaultPadding),

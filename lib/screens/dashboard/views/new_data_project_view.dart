@@ -42,7 +42,7 @@ class _NewDataProjectView extends State<NewDataProjectView> {
   }
 
   late DropzoneViewController controller1;
-  String message1 = 'Drop file data at here';
+  String message1 = 'Drop data file at here';
   bool highlighted1 = false;
   // const _NewDataProjectView({
   //   Key? key

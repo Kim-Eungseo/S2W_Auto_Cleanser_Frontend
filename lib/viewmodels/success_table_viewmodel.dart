@@ -5,7 +5,7 @@ import 'interfaces/table_viewmodel_interface.dart';
 class SuccessTableViewModel extends ChangeNotifier
     implements TableViewModelInterface{
 
-  List<String> _tableColumnList = ["Init process from Data projects tab!"];
+  List<String> _tableColumnList = ["Empty"];
   List<Map<String, dynamic>> tableDataList = [];
 
   @override

@@ -8,7 +8,7 @@ import 'interfaces/table_viewmodel_interface.dart';
 class FailTableViewModel extends ChangeNotifier
     implements TableViewModelInterface{
 
-  List<String> _tableColumnList = ["Me too!"];
+  List<String> _tableColumnList = ["Empty"];
   List<Map<String, dynamic>> tableDataList = [];
 
   @override
