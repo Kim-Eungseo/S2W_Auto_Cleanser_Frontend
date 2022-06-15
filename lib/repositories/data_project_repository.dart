@@ -13,7 +13,7 @@ class DataProjectRepository {
 
 class RemoteDataSource4DataProject {
   Future<List<DataProjectDto>> getDataProjectByName(String name) async {
-    String uri = "http://localhost:8000/v1/project/?name=" + name;
+    String uri = "http://10.0.40.140:8000/v2/project/?name=" + name;
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
       final data = json.decode(res.body) as List;
@@ -24,7 +24,7 @@ class RemoteDataSource4DataProject {
   }
 
   Future<DataProjectDto> getDataProjectById(int id) async {
-    String uri = "http://localhost:8000/v1/project/" + id.toString();
+    String uri = "http://10.0.40.140:8000/v2/project/" + id.toString();
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
       final data = DataProjectDto.fromJson(json.decode(res.body)) ;
@@ -35,7 +35,7 @@ class RemoteDataSource4DataProject {
   }
 
   Future<bool> deleteDataProjectById(int id) async {
-    String uri = "http://localhost:8000/v1/project/delete?id_=" + id.toString();
+    String uri = "http://10.0.40.140:8000/v2/project/delete?id_=" + id.toString();
     final res = await http.delete(Uri.parse(uri));
     if (res.statusCode == 200) {
       if (res.body == 'true'){
@@ -50,7 +50,7 @@ class RemoteDataSource4DataProject {
   }
 
   Future<DataProjectDto> updateDataProjectByMap(Map<String, dynamic> map) async {
-    String uri = "http://localhost:8000/v1/project/update";
+    String uri = "http://10.0.40.140:8000/v2/project/update";
     final res = await http.post(
       Uri.parse(uri),
       headers: <String, String> {
@@ -68,7 +68,7 @@ class RemoteDataSource4DataProject {
 
   Future<DataProjectDto> newDataProjectByMap(Map<String, dynamic> map) async {
     print(map.toString());
-    String uri = "http://localhost:8000/v1/project/new";
+    String uri = "http://10.0.40.140:8000/v2/project/new";
     final res = await http.post(
         Uri.parse(uri),
         headers: <String, String> {

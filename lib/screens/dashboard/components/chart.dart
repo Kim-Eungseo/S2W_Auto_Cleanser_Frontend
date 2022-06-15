@@ -187,16 +187,6 @@ class Chart extends StatelessWidget {
     ];
   }
 
-  Future<Map<String, String>> getServerMetrics() async {
-    String uri = "http://localhost:8000/v1/process/metrics";
-    final res = await http.get(Uri.parse(uri));
-    if (res.statusCode == 200) {
-      var data = Map<String, String>.from(json.decode(res.body));
-      return data;
-    } else {
-      throw Exception("Error on server");
-    }
-  }
 }
 
 

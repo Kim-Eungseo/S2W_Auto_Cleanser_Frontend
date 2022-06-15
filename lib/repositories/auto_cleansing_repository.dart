@@ -18,7 +18,7 @@ class AutoCleansingRepository {
 class RemoteDataSource4AutoCleansing {
 
   Future<Map<String, dynamic>> getAutoDetectionById(int id) async {
-    String uri = "http://localhost:8000/v1/process/detect/?id_=" + id.toString();
+    String uri = "http://10.0.40.140:8000/v2/process/detect/?id_=" + id.toString();
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
       return json.decode(res.body) as Map<String, dynamic>;
@@ -28,7 +28,7 @@ class RemoteDataSource4AutoCleansing {
   }
 
   Future<Map<String, dynamic>> cleanseData(String req) async {
-    String uri = "http://localhost:8000/v1/process/cleanse";
+    String uri = "http://10.0.40.140:8000/v2/process/cleanse";
     print(req);
     final res = await http.post(
         Uri.parse(uri),

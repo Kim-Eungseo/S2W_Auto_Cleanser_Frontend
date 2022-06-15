@@ -34,7 +34,7 @@ class ServerDetailsViewModel extends ChangeNotifier {
   }
 
   Future<Map<String, String>> getServerMetrics() async {
-    String uri = "http://localhost:8000/v1/process/metrics";
+    String uri = "http://10.0.40.140:8000/v2/process/metrics";
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
       var data = Map<String, String>.from(json.decode(res.body));
