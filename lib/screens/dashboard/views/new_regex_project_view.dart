@@ -1,4 +1,5 @@
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/dashboard/components/code_editor.dart';
 import 'package:admin/screens/dashboard/components/code_editor/editor.dart';
 import 'package:admin/screens/dashboard/components/detected_columns.dart';
 import 'package:admin/viewmodels/data_project_viewmodel.dart';
@@ -83,7 +84,8 @@ class _NewRegexProjectView extends State<NewRegexProjectView> {
                       SizedBox(height: defaultPadding),
                       NewRegexProjectContainerView(viewModel),
                       SizedBox(height: defaultPadding),
-                      Editor(codableViewmodel: Provider.of<NewRegexProjectViewModel>(context, listen: false),),
+                      // Editor(codableViewmodel: Provider.of<NewRegexProjectViewModel>(context, listen: false),),
+                      CodeEditor(context.read<NewRegexProjectViewModel>().code),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))

@@ -42,13 +42,19 @@ class CleansingProcessView extends StatelessWidget {
                               Text(
                               "Cleaning Process Selection",
                               overflow: TextOverflow.ellipsis,
-                              style: Theme.of(context).textTheme.headline6,
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .subtitle1,
                               ),
                             if (Responsive.isMobile(context))
                               Text(
                                 "Select Process",
                                 overflow: TextOverflow.ellipsis,
-                                style: Theme.of(context).textTheme.headline6,
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .subtitle1,
                               ),
                               Spacer(),
                             if (detectionViewModel.tableDataList.length != 0)
@@ -100,7 +106,10 @@ class CleansingProcessView extends StatelessWidget {
                           children: [
                             Text(
                               "Cleansed Data Result",
-                              style: Theme.of(context).textTheme.headline6,
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .subtitle1,
                             ),
                           ]
                       ),
