@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'dart:io' show Platform;
+import '../constants.dart';
 import '../viewmodels/regex_project_viewmodel.dart';
 
 
@@ -19,7 +20,7 @@ class RemoteDataSource4RegexProject {
 
   Future<RegexProjectDto> newRegexProjectByMap(Map<String, String> map) async {
     print(map.toString());
-    String uri = "http://10.0.40.140/v2/regex/new";
+    String uri = apiServerUri + "/regex/new";
     final res = await http.post(
         Uri.parse(uri),
         headers: <String, String> {
@@ -36,7 +37,7 @@ class RemoteDataSource4RegexProject {
   }
 
   Future<List<RegexProjectDto>> getRegexProjectByName(String name) async {
-    String uri = "http://10.0.40.140/v2/regex/?name=" + name;
+    String uri = apiServerUri + "/regex/?name=" + name;
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
       final data = json.decode(res.body) as List;
@@ -47,7 +48,7 @@ class RemoteDataSource4RegexProject {
   }
 
   Future<RegexProjectDto> getRegexProjectById(int id) async {
-    String uri = "http://10.0.40.140/v2/regex/" + id.toString();
+    String uri = apiServerUri + "/regex/" + id.toString();
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
       final data = RegexProjectDto.fromJson(json.decode(res.body)) ;
@@ -58,7 +59,7 @@ class RemoteDataSource4RegexProject {
   }
 
   Future<bool> deleteRegexProjectById(int id) async {
-    String uri = "http://10.0.40.140/v2/regex/delete?id_=" + id.toString();
+    String uri = apiServerUri + "/regex/delete?id_=" + id.toString();
     final res = await http.delete(Uri.parse(uri));
     if (res.statusCode == 200) {
       if (res.body == 'true'){
@@ -73,7 +74,7 @@ class RemoteDataSource4RegexProject {
   }
 
   Future<RegexProjectDto> updateRegexProjectByMap(Map<String, dynamic> map) async {
-    String uri = "http://10.0.40.140/v2/regex/update";
+    String uri = apiServerUri + "/regex/update";
     print(json.encode(map));
     final res = await http.post(
         Uri.parse(uri),

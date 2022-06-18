@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import '../constants.dart';
+
 
 class ServerDetailsViewModel extends ChangeNotifier {
 
@@ -34,7 +36,7 @@ class ServerDetailsViewModel extends ChangeNotifier {
   }
 
   Future<Map<String, String>> getServerMetrics() async {
-    String uri = "http://10.0.40.140/v2/process/metrics";
+    String uri = apiServerUri + "/process/metrics";
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
       var data = Map<String, String>.from(json.decode(res.body));

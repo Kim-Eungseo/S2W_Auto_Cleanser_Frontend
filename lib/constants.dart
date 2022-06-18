@@ -10,3 +10,5 @@ const bgColor = Color(0xFF212332);
 const defaultPadding = 16.0;
 
 const tertiaryColor = Color(0xFF020a22);
+
+const apiServerUri = "http://10.0.40.140/v2";

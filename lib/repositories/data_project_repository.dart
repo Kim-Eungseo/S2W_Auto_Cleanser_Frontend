@@ -2,6 +2,8 @@ import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../constants.dart';
+
 
 class DataProjectRepository {
   late final RemoteDataSource4DataProject remoteDataSource;
@@ -13,7 +15,7 @@ class DataProjectRepository {
 
 class RemoteDataSource4DataProject {
   Future<List<DataProjectDto>> getDataProjectByName(String name) async {
-    String uri = "http://10.0.40.140/v2/project/?name=" + name;
+    String uri = apiServerUri + "/project/?name=" + name;
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
       final data = json.decode(res.body) as List;
@@ -24,7 +26,7 @@ class RemoteDataSource4DataProject {
   }
 
   Future<DataProjectDto> getDataProjectById(int id) async {
-    String uri = "http://10.0.40.140/v2/project/" + id.toString();
+    String uri = apiServerUri + "/project/" + id.toString();
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
       final data = DataProjectDto.fromJson(json.decode(res.body)) ;
@@ -35,7 +37,7 @@ class RemoteDataSource4DataProject {
   }
 
   Future<bool> deleteDataProjectById(int id) async {
-    String uri = "http://10.0.40.140/v2/project/delete?id_=" + id.toString();
+    String uri = apiServerUri + "/project/delete?id_=" + id.toString();
     final res = await http.delete(Uri.parse(uri));
     if (res.statusCode == 200) {
       if (res.body == 'true'){
@@ -50,7 +52,7 @@ class RemoteDataSource4DataProject {
   }
 
   Future<DataProjectDto> updateDataProjectByMap(Map<String, dynamic> map) async {
-    String uri = "http://10.0.40.140/v2/project/update";
+    String uri = apiServerUri + "/project/update";
     final res = await http.post(
       Uri.parse(uri),
       headers: <String, String> {
@@ -68,7 +70,7 @@ class RemoteDataSource4DataProject {
 
   Future<DataProjectDto> newDataProjectByMap(Map<String, dynamic> map) async {
     print(map.toString());
-    String uri = "http://10.0.40.140/v2/project/new";
+    String uri = apiServerUri + "/project/new";
     final res = await http.post(
         Uri.parse(uri),
         headers: <String, String> {
