@@ -8,7 +8,7 @@ part of 'regex_project_viewmodel.dart';
 
 RegexProjectDto _$RegexProjectDtoFromJson(Map<String, dynamic> json) =>
     RegexProjectDto(
-      id: json['id'] as int?,
+      id: json['id'] as String?,
       name: json['name'] as String?,
       author: json['author'] as String?,
       regex: json['regex'] as String?,

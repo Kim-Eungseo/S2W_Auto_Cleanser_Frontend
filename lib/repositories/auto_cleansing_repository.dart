@@ -4,6 +4,7 @@ import 'package:admin/viewmodels/data_project_viewmodel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../constants.dart';
 import '../viewmodels/regex_project_viewmodel.dart';
 
 
@@ -17,8 +18,8 @@ class AutoCleansingRepository {
 
 class RemoteDataSource4AutoCleansing {
 
-  Future<Map<String, dynamic>> getAutoDetectionById(int id) async {
-    String uri = "http://10.0.40.140/v2/process/detect/?id_=" + id.toString();
+  Future<Map<String, dynamic>> getAutoDetectionById(String id) async {
+    String uri = apiServerUri + "/process/detect/?id_=" + id;
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
       return json.decode(res.body) as Map<String, dynamic>;
@@ -28,7 +29,7 @@ class RemoteDataSource4AutoCleansing {
   }
 
   Future<Map<String, dynamic>> cleanseData(String req) async {
-    String uri = "http://10.0.40.140/v2/process/cleanse";
+    String uri = apiServerUri + "/process/cleanse";
     print(req);
     final res = await http.post(
         Uri.parse(uri),

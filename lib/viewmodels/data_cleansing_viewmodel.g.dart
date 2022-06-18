@@ -9,7 +9,7 @@ part of 'data_cleansing_viewmodel.dart';
 CleansingProcessDto _$CleansingProcessDtoFromJson(Map<String, dynamic> json) =>
     CleansingProcessDto(
       col_name: json['col_name'] as String?,
-      regex_id: json['regex_id'] as int?,
+      regex_id: json['regex_id'] as String?,
     );
 
 Map<String, dynamic> _$CleansingProcessDtoToJson(

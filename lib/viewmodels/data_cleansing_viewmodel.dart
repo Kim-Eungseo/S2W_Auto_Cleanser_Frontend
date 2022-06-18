@@ -13,7 +13,7 @@ class DataCleansingViewModel with ChangeNotifier{
   SuccessTableViewModel successTableViewModel;
   FailTableViewModel failTableViewModel;
 
-  int? projectId;
+  String? projectId;
   List<CleansingProcessDto> process = [];
 
   Map<String, int> selectedIndexes = {};
@@ -46,7 +46,7 @@ class DataCleansingViewModel with ChangeNotifier{
 
   void cleanse() async{
     Map<String, dynamic> data = {};
-    data["project_id"] = projectId ?? -1;
+    data["project_id"] = projectId ?? "";
     data["process"] = process.map((e) {
       return e.toJson();
     }).toList();
@@ -78,7 +78,7 @@ class CleansingProcessDto {
   // ignore: non_constant_identifier_names
   final String? col_name;
   // ignore: non_constant_identifier_names
-  final int? regex_id;
+  final String? regex_id;
 
   CleansingProcessDto({
     // ignore: non_constant_identifier_names

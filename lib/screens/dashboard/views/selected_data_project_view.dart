@@ -77,7 +77,7 @@ class SelectedDataProjectView extends StatelessWidget {
                             ),
                             onPressed: () {
                               viewModel.tableDataList.remove(dataPreviewModel.tableDataList[0]);
-                              viewModel.delete(dataPreviewModel.tableDataList[0]['id'] as int);
+                              viewModel.delete(dataPreviewModel.tableDataList[0]['id']);
                               Provider.of<MainScreenViewModel>(context, listen: false)
                                   .setScreen(Screen.data);
                             },
@@ -138,7 +138,7 @@ class SelectedDataProjectView extends StatelessWidget {
                               ),
                             ),
                             onPressed: () {
-                              int id = dataPreviewModel.tableDataList[0]['id'];
+                              String id = dataPreviewModel.tableDataList[0]['id'];
                               Provider.of<AutoDetectionViewModel>(context, listen: false).getAutoDetection(id);
                               Map<String, int> map = Provider.of<DataCleansingViewModel>(context, listen: false).selectedIndexes;
                               for (String d in dataTablePreviewModel.tableColumnList){

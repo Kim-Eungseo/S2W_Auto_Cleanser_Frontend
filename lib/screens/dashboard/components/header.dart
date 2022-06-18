@@ -66,7 +66,7 @@ class SearchField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       decoration: InputDecoration(
-        hintText: "This is 4 just ganzi",
+        hintText: "재즈가 뭐라고 생각하세요?",
         fillColor: secondaryColor,
         filled: true,
         border: OutlineInputBorder(
@@ -82,7 +82,7 @@ class SearchField extends StatelessWidget {
               color: primaryColor,
               borderRadius: const BorderRadius.all(Radius.circular(10)),
             ),
-            child: Text("미안"),
+            child: Text("아니"),
           ),
         ),
       ),

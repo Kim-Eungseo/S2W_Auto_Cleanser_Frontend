@@ -42,7 +42,7 @@ class DataProjectViewModel with ChangeNotifier
   @override
   List<String> get tableColumnList => _tableColumnList;
 
-  void delete(int id) async{
+  void delete(String id) async{
     Future<bool> data = dataProjectRepository
         .remoteDataSource
         .deleteDataProjectById(id);
@@ -73,7 +73,7 @@ class DataProjectViewModel with ChangeNotifier
 
 @JsonSerializable()
 class DataProjectDto {
-  final int? id;
+  final String? id;
   final String? name;
   final String? author;
   final String? fileText;

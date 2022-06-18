@@ -25,8 +25,8 @@ class RemoteDataSource4DataProject {
     }
   }
 
-  Future<DataProjectDto> getDataProjectById(int id) async {
-    String uri = apiServerUri + "/project/" + id.toString();
+  Future<DataProjectDto> getDataProjectById(String id) async {
+    String uri = apiServerUri + "/project/get/" + id;
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
       final data = DataProjectDto.fromJson(json.decode(res.body)) ;
@@ -36,7 +36,7 @@ class RemoteDataSource4DataProject {
     }
   }
 
-  Future<bool> deleteDataProjectById(int id) async {
+  Future<bool> deleteDataProjectById(String id) async {
     String uri = apiServerUri + "/project/delete?id_=" + id.toString();
     final res = await http.delete(Uri.parse(uri));
     if (res.statusCode == 200) {

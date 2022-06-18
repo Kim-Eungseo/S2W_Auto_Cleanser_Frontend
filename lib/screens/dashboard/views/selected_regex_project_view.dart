@@ -13,6 +13,7 @@ import '../../../constants.dart';
 import '../../../viewmodels/main_screen_viewmodel.dart';
 import '../../../viewmodels/regex_project_viewmodel.dart';
 import '../../../viewmodels/selected_data_head_table_viewmodel.dart';
+import '../components/code_editor.dart';
 import '../components/code_editor/editor.dart';
 import '../components/header.dart';
 
@@ -74,7 +75,7 @@ class SelectedRegexProjectView extends StatelessWidget {
                           FlowButton(
                             onPressed: () {
                               viewModel.tableDataList.remove(regexPreviewModel.tableDataList[0]);
-                              viewModel.delete(regexPreviewModel.tableDataList[0]['id'] as int);
+                              viewModel.delete(regexPreviewModel.tableDataList[0]['id']);
                               Provider.of<MainScreenViewModel>(context, listen: false)
                                   .setScreen(Screen.regex);
                             },
@@ -84,6 +85,7 @@ class SelectedRegexProjectView extends StatelessWidget {
 
                           FlowButton(
                             onPressed: () {
+                              regexPreviewModel.saveCode();
                               viewModel.tableDataList.remove(regexPreviewModel.tableDataList[0]);
                               viewModel.update(regexPreviewModel.tableDataList[0]);
                               Provider.of<MainScreenViewModel>(context, listen: false)
@@ -102,7 +104,8 @@ class SelectedRegexProjectView extends StatelessWidget {
                             );
                           }),
                       SizedBox(height: defaultPadding),
-                      Editor(codableViewmodel: Provider.of<SelectedRegexTableViewModel>(context, listen: false),),
+                      // Editor(codableViewmodel: Provider.of<SelectedRegexTableViewModel>(context, listen: false),),
+                      CodeEditor(context.read<SelectedRegexTableViewModel>()),
 
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),

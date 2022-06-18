@@ -37,7 +37,7 @@ class SelectedDataHeadTableViewModel extends ChangeNotifier
     notifyListeners();
   }
 
-  void searchById(int id) async{
+  void searchById(String id) async{
     Future<DataProjectDto> data = dataProjectRepository
         .remoteDataSource
         .getDataProjectById(id);

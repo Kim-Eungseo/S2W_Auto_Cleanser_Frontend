@@ -47,7 +47,7 @@ class RemoteDataSource4RegexProject {
     }
   }
 
-  Future<RegexProjectDto> getRegexProjectById(int id) async {
+  Future<RegexProjectDto> getRegexProjectById(String id) async {
     String uri = apiServerUri + "/regex/" + id.toString();
     final res = await http.get(Uri.parse(uri));
     if (res.statusCode == 200) {
@@ -58,7 +58,7 @@ class RemoteDataSource4RegexProject {
     }
   }
 
-  Future<bool> deleteRegexProjectById(int id) async {
+  Future<bool> deleteRegexProjectById(String id) async {
     String uri = apiServerUri + "/regex/delete?id_=" + id.toString();
     final res = await http.delete(Uri.parse(uri));
     if (res.statusCode == 200) {

@@ -38,7 +38,7 @@ class RegexProjectViewModel with ChangeNotifier
     });
   }
 
-  void delete(int id) async{
+  void delete(String id) async{
     Future<bool> data = regexProjectRepository
         .remoteDataSource
         .deleteRegexProjectById(id);
@@ -82,7 +82,7 @@ class RegexProjectViewModel with ChangeNotifier
 
 @JsonSerializable()
 class RegexProjectDto {
-  final int? id;
+  final String? id;
   final String? name;
   final String? author;
   final String? regex;

@@ -60,11 +60,14 @@ class CleansingProcessView extends StatelessWidget {
                             if (detectionViewModel.tableDataList.length != 0)
                               FlowButton(
                                   onPressed: () {
+                                    Provider.of<MainScreenViewModel>(context, listen: false).isLoading = true;
                                     if (detectionViewModel.tableDataList.length > 0){
                                       mainScreenViewModel.isLoading = true;
                                       viewModel.cleanse();
                                       mainScreenViewModel.isLoading = false;
                                     }
+                                    Provider.of<MainScreenViewModel>(context, listen: false).isLoading = false;
+
                                   },
                                   icon: Icon(Icons.cleaning_services_rounded),
                                   label: Text("Cleanse!"),

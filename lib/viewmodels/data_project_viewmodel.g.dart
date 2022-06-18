@@ -8,7 +8,7 @@ part of 'data_project_viewmodel.dart';
 
 DataProjectDto _$DataProjectDtoFromJson(Map<String, dynamic> json) =>
     DataProjectDto(
-      id: json['id'] as int?,
+      id: json['id'] as String?,
       name: json['name'] as String?,
       author: json['author'] as String?,
       fileText: json['fileText'] as String?,

@@ -1,5 +1,6 @@
 import 'package:admin/constants.dart';
 import 'package:admin/screens/dashboard/components/code_editor/highlighter.dart';
+import 'package:admin/viewmodels/interfaces/codable_viewmodel_interface.dart';
 import 'package:code_text_field/code_text_field.dart';
 import 'package:flutter/material.dart';
 // Import the language & theme
@@ -9,23 +10,19 @@ import 'package:flutter_highlight/themes/monokai-sublime.dart';
 class CodeEditor extends StatefulWidget {
   @override
   _CodeEditorState createState() => _CodeEditorState();
-  String code;
-  CodeEditor(this.code);
+  CodableViewmodelInterface viewmodel;
+  CodeEditor(this.viewmodel);
 }
 
 class _CodeEditorState extends State<CodeEditor> {
   CodeController? _codeController;
-
+  CodableViewmodelInterface? viewmodel;
   @override
   void initState() {
     super.initState();
-    final source = widget.code;
+    this.viewmodel = widget.viewmodel;
     // Instantiate the CodeController
-    _codeController = CodeController(
-      text: source,
-      language: python,
-      theme: monokaiSublimeTheme,
-    );
+
   }
 
   @override
@@ -36,6 +33,15 @@ class _CodeEditorState extends State<CodeEditor> {
 
   @override
   Widget build(BuildContext context) {
+    _codeController = CodeController(
+        text: viewmodel!.code,
+        language: python,
+        theme: monokaiSublimeTheme,
+        onChange: (code) {
+          print(code);
+          viewmodel!.code = code;
+        }
+    );
     return
       Container(
         padding: EdgeInsets.all(defaultPadding),

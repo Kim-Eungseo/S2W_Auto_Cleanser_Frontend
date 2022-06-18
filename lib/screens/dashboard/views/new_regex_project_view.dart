@@ -85,7 +85,7 @@ class _NewRegexProjectView extends State<NewRegexProjectView> {
                       NewRegexProjectContainerView(viewModel),
                       SizedBox(height: defaultPadding),
                       // Editor(codableViewmodel: Provider.of<NewRegexProjectViewModel>(context, listen: false),),
-                      CodeEditor(context.read<NewRegexProjectViewModel>().code),
+                      CodeEditor(context.read<NewRegexProjectViewModel>()),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))

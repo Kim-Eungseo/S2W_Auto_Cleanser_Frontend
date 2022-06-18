@@ -34,7 +34,7 @@ class AutoDetectionViewModel extends ChangeNotifier {
     notify();
   }
 
-  void getAutoDetection(int id) async{
+  void getAutoDetection(String id) async{
     Future<Map<String, dynamic>> data = cleansingRepository
         .remoteDataSource
         .getAutoDetectionById(id);
